@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+dist-ssr/
+*.tsbuildinfo
+.vite/
+coverage/
+# 构建产物（perf-*.mjs 的输入，由 vite build 重新生成）
+dist-demo/
+dist-lab/
+
+# local env
+.env
+.env.*
+!.env.example
+
+# editor / os
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db
+*.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# test / tooling
+.playwright/
+test-results/
+
+# docs build
+apps/docs/.vitepress/dist
+apps/docs/.vitepress/cache
+
+# 验证脚本的临时截图输出
+docs/screenshots/tmp/

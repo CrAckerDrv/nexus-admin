@@ -1,0 +1,49 @@
+:root {
+  --vp-c-brand-1: #0d6efd;
+  --vp-c-brand-2: #0b5fe0;
+  --vp-c-brand-3: #0a53c4;
+  --vp-c-brand-soft: rgba(13, 110, 253, 0.14);
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+.dark {
+  --vp-c-brand-1: #4c8dff;
+  --vp-c-brand-2: #6a9fff;
+  --vp-c-brand-3: #3b7bef;
+  --vp-c-brand-soft: rgba(76, 141, 255, 0.16);
+}
+
+/* 首页隐藏默认 hero，使用自定义 Hero.vue */
+.VPHero {
+  display: none;
+}
+
+/* 代码块圆角与边框 */
+div[class*='language-'] {
+  border-radius: 8px;
+}
+
+/* 表格更紧凑 */
+.vp-doc table {
+  font-size: 13px;
+}
+
+.vp-doc th,
+.vp-doc td {
+  padding: 8px 12px;
+}
+
+/* 行内代码 */
+.vp-doc :not(pre) > code {
+  background: var(--vp-c-default-soft);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 0.86em;
+}
+
+/* 提示块去掉多余阴影 */
+.custom-block {
+  border-radius: 8px;
+}

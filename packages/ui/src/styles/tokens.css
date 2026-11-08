@@ -1,0 +1,3077 @@
+/* ------------------------------------------------------------------ *
+ * Nexus Admin · Design Tokens
+ *
+ * 设计令牌集中在这里，业务与组件只消费语义变量（bg-surface / text-fg-2 ...）。
+ * 支持：明暗模式、皮肤（skin）、强调色覆盖、圆角、密度、字体、侧栏形态、布局。
+ *
+ * 分层：
+ *   1. 基础色板（中性色 / 语义色）
+ *   2. 皮肤 `data-skin` —— 决定整套中性色、图表色板、侧栏与投影质感
+ *   3. 强调色 `data-accent` —— 只覆盖主色，可与任意皮肤组合（不写则跟随皮肤）
+ *
+ * 使用方式（应用入口样式文件）：
+ *   @import 'tailwindcss';
+ *   @import '../../packages/ui/src/styles/tokens.css';
+ * ------------------------------------------------------------------ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ *
+ * 1. 默认皮肤 · cloud（清透云）
+ *    中性灰底 + 品牌蓝；侧栏与内容同底色（"贴合"形态最干净）
+ * ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  /* 中性色 */
+  --n-bg: #f2f3f5;
+  --n-bg-subtle: #f7f8fa;
+  --n-surface: #ffffff;
+  --n-surface-2: #f7f8fa;
+  --n-surface-3: #eef0f3;
+  --n-surface-inset: #f2f3f5;
+  --n-border: #e4e6eb;
+  --n-border-strong: #cdd1d9;
+  --n-border-subtle: #eef0f3;
+
+  /* 文本 */
+  --n-fg: #1d2129;
+  --n-fg-2: #4e5969;
+  --n-fg-3: #86909c;
+  --n-fg-4: #b4bac4;
+  --n-fg-inverse: #ffffff;
+  /* 反色表面：Tooltip / 深色气泡等「反相」场景（浅色下是深底白字） */
+  --n-bg-inverse: #1d2129;
+
+  /* 品牌主色（可被 data-accent 覆盖） */
+  --n-primary: #0d6efd;
+  --n-primary-hover: #0b5fe0;
+  --n-primary-active: #0a53c4;
+  --n-primary-weak: #eaf2ff;
+  --n-primary-weak-2: #d7e7ff;
+  --n-primary-fg: #ffffff;
+  --n-primary-ring: #0d6efd33;
+
+  /* 语义色 */
+  --n-success: #12a150;
+  --n-success-weak: #e8f7ef;
+  --n-warning: #d97706;
+  --n-warning-weak: #fdf3e3;
+  --n-danger: #dc2626;
+  --n-danger-weak: #fdeced;
+  --n-info: #0d6efd;
+  --n-info-weak: #eaf2ff;
+
+  /* 图表色板：皮肤整体替换，强调色只覆盖第 1 位 */
+  --n-chart-1: #0d6efd;
+  --n-chart-2: #12a150;
+  --n-chart-3: #f59e0b;
+  --n-chart-4: #8b5cf6;
+  --n-chart-5: #ec4899;
+  --n-chart-6: #06b6d4;
+
+  /* 顶栏底色：默认跟随卡片面；调色盘可以单独把顶栏染成另一档。
+     这里写成 var 别名而不是字面值 —— 皮肤的 --n-surface 改了，顶栏自动跟着改，
+     不用给每套皮肤各抄一行。用户 override 时行内变量会直接顶掉它。 */
+  --n-topbar-bg: var(--n-surface);
+
+  /* 侧栏独立配色：默认与 surface 相同；深色侧栏的皮肤会改写这一组 */
+  --n-sidebar-bg: #ffffff;
+  --n-sidebar-hover: #f7f8fa;
+  --n-sidebar-fg: #1d2129;
+  --n-sidebar-fg-2: #4e5969;
+  --n-sidebar-fg-3: #86909c;
+  --n-sidebar-fg-4: #b4bac4;
+  --n-sidebar-border: #e4e6eb;
+  --n-sidebar-border-subtle: #eef0f3;
+  --n-sidebar-border-strong: #cdd1d9;
+  --n-sidebar-accent: #0d6efd;
+  --n-sidebar-active: #eaf2ff;
+
+  /* 形状与动效（rem，1rem = 16px） */
+  --n-radius: 0.5rem;
+  --n-radius-sm: calc(var(--n-radius) * 0.75);
+  --n-radius-lg: calc(var(--n-radius) * 1.5);
+  --n-radius-xl: calc(var(--n-radius) * 2);
+  --n-radius-full: 9999px;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(16 24 40 / 0.04);
+  --n-shadow-sm: 0 1px 3px 0 rgb(16 24 40 / 0.06), 0 1px 2px -1px rgb(16 24 40 / 0.06);
+  --n-shadow-md: 0 4px 12px -2px rgb(16 24 40 / 0.08), 0 2px 6px -2px rgb(16 24 40 / 0.05);
+  --n-shadow-lg: 0 12px 32px -8px rgb(16 24 40 / 0.14), 0 4px 12px -4px rgb(16 24 40 / 0.08);
+  --n-shadow-xl: 0 24px 64px -16px rgb(16 24 40 / 0.22);
+
+  /* 密度（rem，1rem = 16px；数值 = 设计稿 px / 16） */
+  --n-control-h: 2.125rem;
+  --n-control-h-sm: 1.75rem;
+  --n-control-h-lg: 2.5rem;
+  --n-row-h: 2.875rem;
+  --n-space-unit: 0.25rem;
+
+  --n-sidebar-w: 14.75rem;
+  --n-sidebar-w-collapsed: 4rem;
+  /* 双列菜单布局：模块导轨 + 当前模块子菜单 */
+  --n-rail-w: 4.5rem;
+  --n-dual-w: 13rem;
+  /* 双列折叠后：第二列不消失，收成一列图标（与导轨并排） */
+  --n-dual-icon-w: 3.5rem;
+  --n-header-h: 3.5rem;
+  /* 内容区左右留白随「整体布局」变化 */
+  --n-page-pad-x: 1.25rem;
+
+  /* 侧边栏动画时长（可被减少动效覆盖） */
+  --n-sidebar-duration: 320ms;
+  --n-sidebar-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 暗色基础：默认皮肤 + 未声明皮肤的兜底 */
+.dark {
+  color-scheme: dark;
+
+  --n-bg: #0a0d13;
+  --n-bg-subtle: #0e1219;
+  --n-surface: #151a22;
+  --n-surface-2: #1c222c;
+  --n-surface-3: #252c38;
+  --n-surface-inset: #101519;
+  --n-border: #2a313d;
+  --n-border-strong: #414a59;
+  --n-border-subtle: #1f252f;
+
+  --n-fg: #eef1f6;
+  --n-fg-2: #c2c9d4;
+  --n-fg-3: #98a1ae;
+  --n-fg-4: #6b7482;
+  --n-fg-inverse: #0b0d12;
+  --n-bg-inverse: #e9ecf1;
+
+  --n-primary: #4c8dff;
+  --n-primary-hover: #6a9fff;
+  --n-primary-active: #3b7bef;
+  --n-primary-weak: #142338;
+  --n-primary-weak-2: #1b3050;
+  --n-primary-fg: #ffffff;
+  --n-primary-ring: #4c8dff4d;
+
+  --n-success: #34d399;
+  --n-success-weak: #10291f;
+  --n-warning: #fbbf24;
+  --n-warning-weak: #2a2213;
+  --n-danger: #f87171;
+  --n-danger-weak: #2c1618;
+  --n-info: #4c8dff;
+  --n-info-weak: #142338;
+
+  --n-chart-1: #4c8dff;
+  --n-chart-2: #34d399;
+  --n-chart-3: #fbbf24;
+  --n-chart-4: #a78bfa;
+  --n-chart-5: #f472b6;
+  --n-chart-6: #22d3ee;
+
+  --n-topbar-bg: var(--n-surface);
+
+  --n-sidebar-bg: #151a22;
+  --n-sidebar-hover: #1c222c;
+  --n-sidebar-fg: #eef1f6;
+  --n-sidebar-fg-2: #c2c9d4;
+  --n-sidebar-fg-3: #98a1ae;
+  --n-sidebar-fg-4: #6b7482;
+  --n-sidebar-border: #2a313d;
+  --n-sidebar-border-subtle: #1f252f;
+  --n-sidebar-border-strong: #414a59;
+  --n-sidebar-accent: #4c8dff;
+  --n-sidebar-active: #142338;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --n-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --n-shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.5);
+  --n-shadow-lg: 0 16px 40px -12px rgb(0 0 0 / 0.6);
+  --n-shadow-xl: 0 32px 72px -20px rgb(0 0 0 / 0.7);
+}
+
+/* ------------------------------------------------------------------ *
+ * 2. 皮肤（skin）
+ *
+ * 每套皮肤负责：中性色阶、语义色、图表色板、侧栏配色、投影质感。
+ * 强调色只覆盖主色，因此「皮肤 × 强调色」是可自由组合的。
+ * 缩略图直接复用这些变量（面板里的预览卡片带 data-skin），不必在 TS 里重复色值。
+ * ------------------------------------------------------------------ */
+
+/* ---- cloud · 清透云：明快中性灰 + 品牌蓝，圆润的通勤感 ---- */
+[data-skin='cloud'] {
+  color-scheme: light;
+}
+.dark[data-skin='cloud'] {
+  color-scheme: dark;
+}
+
+/* ---- graphite · 石墨工作台：冷灰 + 靛蓝，浅色下配深色侧栏，投影克制 ---- */
+[data-skin='graphite'] {
+  --n-bg: #f4f5f8;
+  --n-bg-subtle: #f8f9fb;
+  --n-surface: #ffffff;
+  --n-surface-2: #f5f6f9;
+  --n-surface-3: #eceef3;
+  --n-surface-inset: #f4f5f8;
+  --n-border: #e0e3ea;
+  --n-border-strong: #c8cdd8;
+  --n-border-subtle: #eceff4;
+
+  --n-fg: #15181e;
+  --n-fg-2: #474e5b;
+  --n-fg-3: #767f8f;
+  --n-fg-4: #a6aebc;
+  --n-bg-inverse: #15181e;
+
+  --n-primary: #4f46e5;
+  --n-primary-hover: #4338ca;
+  --n-primary-active: #3730a3;
+  --n-primary-weak: #eef0fe;
+  --n-primary-weak-2: #e0e3fd;
+  --n-primary-ring: #4f46e533;
+
+  --n-success: #0f9d58;
+  --n-success-weak: #e8f6ef;
+  --n-warning: #d97706;
+  --n-warning-weak: #fdf3e3;
+  --n-danger: #dc2626;
+  --n-danger-weak: #fdeced;
+  --n-info: #4f46e5;
+  --n-info-weak: #eef0fe;
+
+  --n-chart-1: #4f46e5;
+  --n-chart-2: #0ea5e9;
+  --n-chart-3: #14b8a6;
+  --n-chart-4: #f59e0b;
+  --n-chart-5: #f43f5e;
+  --n-chart-6: #8b95a7;
+
+  --n-sidebar-bg: #171a21;
+  --n-sidebar-hover: #232833;
+  --n-sidebar-fg: #e9ecf2;
+  --n-sidebar-fg-2: #b8c0cd;
+  --n-sidebar-fg-3: #8a93a3;
+  --n-sidebar-fg-4: #656e7e;
+  --n-sidebar-border: #262b35;
+  --n-sidebar-border-subtle: #20242c;
+  --n-sidebar-border-strong: #313641;
+  --n-sidebar-accent: #a5b4fc;
+  --n-sidebar-active: #232a3d;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(18 22 30 / 0.05);
+  --n-shadow-sm: 0 1px 2px 0 rgb(18 22 30 / 0.07);
+  --n-shadow-md: 0 2px 8px -2px rgb(18 22 30 / 0.09);
+  --n-shadow-lg: 0 8px 24px -8px rgb(18 22 30 / 0.16);
+  --n-shadow-xl: 0 20px 56px -16px rgb(18 22 30 / 0.24);
+}
+.dark[data-skin='graphite'] {
+  --n-bg: #0b0c10;
+  --n-bg-subtle: #0f1115;
+  --n-surface: #15171d;
+  --n-surface-2: #1b1e25;
+  --n-surface-3: #23272f;
+  --n-surface-inset: #101216;
+  --n-border: #272b34;
+  --n-border-strong: #3b414d;
+  --n-border-subtle: #1e222a;
+
+  --n-fg: #eceff5;
+  --n-fg-2: #c0c7d3;
+  --n-fg-3: #96a0ae;
+  --n-fg-4: #6b7480;
+  --n-fg-inverse: #0b0d12;
+  --n-bg-inverse: #e9ecf1;
+
+  --n-primary: #818cf8;
+  --n-primary-hover: #a5b4fc;
+  --n-primary-active: #6366f1;
+  --n-primary-weak: #1b1d33;
+  --n-primary-weak-2: #262a45;
+  --n-primary-ring: #818cf84d;
+
+  --n-success: #34d399;
+  --n-success-weak: #10291f;
+  --n-warning: #fbbf24;
+  --n-warning-weak: #2a2213;
+  --n-danger: #f87171;
+  --n-danger-weak: #2c1618;
+  --n-info: #818cf8;
+  --n-info-weak: #1b1d33;
+
+  --n-chart-1: #818cf8;
+  --n-chart-2: #38bdf8;
+  --n-chart-3: #2dd4bf;
+  --n-chart-4: #fbbf24;
+  --n-chart-5: #fb7185;
+  --n-chart-6: #94a3b8;
+
+  --n-sidebar-bg: #101116;
+  --n-sidebar-hover: #191c22;
+  --n-sidebar-fg: #e7eaf0;
+  --n-sidebar-fg-2: #b6bec9;
+  --n-sidebar-fg-3: #8b93a0;
+  --n-sidebar-fg-4: #636b78;
+  --n-sidebar-border: #23262e;
+  --n-sidebar-border-subtle: #1c1f26;
+  --n-sidebar-border-strong: #2d323b;
+  --n-sidebar-accent: #a5b4fc;
+  --n-sidebar-active: #1e2130;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.32);
+  --n-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.42);
+  --n-shadow-md: 0 4px 14px -4px rgb(0 0 0 / 0.5);
+  --n-shadow-lg: 0 12px 32px -10px rgb(0 0 0 / 0.62);
+  --n-shadow-xl: 0 28px 64px -18px rgb(0 0 0 / 0.72);
+}
+
+/* ---- sand · 暖砂纸：米色底 + 陶土橙，暖调投影与低饱和图表 ---- */
+[data-skin='sand'] {
+  --n-bg: #f6f0e4;
+  --n-bg-subtle: #faf5eb;
+  --n-surface: #fffdf8;
+  --n-surface-2: #f8f2e7;
+  --n-surface-3: #efe6d6;
+  --n-surface-inset: #f4edde;
+  --n-border: #e5dac7;
+  --n-border-strong: #cdbda3;
+  --n-border-subtle: #efe6d7;
+
+  --n-fg: #2a231b;
+  --n-fg-2: #5a5140;
+  --n-fg-3: #8b8069;
+  --n-fg-4: #b6ab93;
+  --n-bg-inverse: #2a231b;
+
+  --n-primary: #c2410c;
+  --n-primary-hover: #9a3412;
+  --n-primary-active: #7c2d12;
+  --n-primary-weak: #fdeee3;
+  --n-primary-weak-2: #fadcc8;
+  --n-primary-ring: #c2410c33;
+
+  --n-success: #4d7c0f;
+  --n-success-weak: #eef6e3;
+  --n-warning: #b45309;
+  --n-warning-weak: #fdf1dc;
+  --n-danger: #b91c1c;
+  --n-danger-weak: #fbe9e6;
+  --n-info: #c2410c;
+  --n-info-weak: #fdeee3;
+
+  --n-chart-1: #c2410c;
+  --n-chart-2: #b7791f;
+  --n-chart-3: #6b8e23;
+  --n-chart-4: #9f5f80;
+  --n-chart-5: #0f766e;
+  --n-chart-6: #7c5e48;
+
+  --n-sidebar-bg: #fbf5e9;
+  --n-sidebar-hover: #f3ead9;
+  --n-sidebar-fg: #2a231b;
+  --n-sidebar-fg-2: #5a5140;
+  --n-sidebar-fg-3: #8b8069;
+  --n-sidebar-fg-4: #a99d84;
+  --n-sidebar-border: #e5dac7;
+  --n-sidebar-border-subtle: #efe6d7;
+  --n-sidebar-border-strong: #cdbda3;
+  --n-sidebar-accent: #c2410c;
+  --n-sidebar-active: #f8e3d2;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(74 56 32 / 0.05);
+  --n-shadow-sm: 0 1px 3px 0 rgb(74 56 32 / 0.07), 0 1px 2px -1px rgb(74 56 32 / 0.06);
+  --n-shadow-md: 0 4px 14px -4px rgb(74 56 32 / 0.1);
+  --n-shadow-lg: 0 14px 34px -10px rgb(74 56 32 / 0.16);
+  --n-shadow-xl: 0 26px 62px -18px rgb(74 56 32 / 0.24);
+}
+.dark[data-skin='sand'] {
+  --n-bg: #17130e;
+  --n-bg-subtle: #1b1611;
+  --n-surface: #221c15;
+  --n-surface-2: #2a231a;
+  --n-surface-3: #342b20;
+  --n-surface-inset: #1d1712;
+  --n-border: #3a2f23;
+  --n-border-strong: #544530;
+  --n-border-subtle: #2c241b;
+
+  --n-fg: #f3ecdf;
+  --n-fg-2: #cfc3ae;
+  --n-fg-3: #a89a83;
+  --n-fg-4: #7c7160;
+  --n-fg-inverse: #17130e;
+  --n-bg-inverse: #f3ecdf;
+
+  --n-primary: #fb923c;
+  --n-primary-hover: #fdba74;
+  --n-primary-active: #f97316;
+  --n-primary-weak: #2e1d10;
+  --n-primary-weak-2: #43290f;
+  --n-primary-ring: #fb923c4d;
+
+  --n-success: #a3e635;
+  --n-success-weak: #1f2a12;
+  --n-warning: #eab308;
+  --n-warning-weak: #2a2410;
+  --n-danger: #f87171;
+  --n-danger-weak: #2c1618;
+  --n-info: #fb923c;
+  --n-info-weak: #2e1d10;
+
+  --n-chart-1: #fb923c;
+  --n-chart-2: #eab308;
+  --n-chart-3: #a3e635;
+  --n-chart-4: #f0abfc;
+  --n-chart-5: #2dd4bf;
+  --n-chart-6: #c8a27a;
+
+  --n-sidebar-bg: #1d1812;
+  --n-sidebar-hover: #272119;
+  --n-sidebar-fg: #f3ecdf;
+  --n-sidebar-fg-2: #c9bda8;
+  --n-sidebar-fg-3: #a2947d;
+  --n-sidebar-fg-4: #776b5a;
+  --n-sidebar-border: #382e22;
+  --n-sidebar-border-subtle: #2e261c;
+  --n-sidebar-border-strong: #4a3d2c;
+  --n-sidebar-accent: #fdba74;
+  --n-sidebar-active: #2e261a;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.32);
+  --n-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.42);
+  --n-shadow-md: 0 6px 18px -6px rgb(0 0 0 / 0.5);
+  --n-shadow-lg: 0 16px 42px -12px rgb(0 0 0 / 0.62);
+  --n-shadow-xl: 0 30px 70px -20px rgb(0 0 0 / 0.72);
+}
+
+/* ---- pine · 松间：青绿中性色 + 深云杉侧栏，安静克制 ---- */
+[data-skin='pine'] {
+  --n-bg: #f1f5f1;
+  --n-bg-subtle: #f7faf7;
+  --n-surface: #ffffff;
+  --n-surface-2: #f3f7f3;
+  --n-surface-3: #e8efe8;
+  --n-surface-inset: #eff4ef;
+  --n-border: #dbe4dc;
+  --n-border-strong: #bfccc1;
+  --n-border-subtle: #e9f0ea;
+
+  --n-fg: #16211a;
+  --n-fg-2: #45544a;
+  --n-fg-3: #74857a;
+  --n-fg-4: #a3b2a7;
+  --n-bg-inverse: #16211a;
+
+  --n-primary: #15803d;
+  --n-primary-hover: #116932;
+  --n-primary-active: #0d5427;
+  --n-primary-weak: #e9f7ee;
+  --n-primary-weak-2: #d3f0dd;
+  --n-primary-ring: #15803d33;
+
+  --n-success: #15803d;
+  --n-success-weak: #e9f7ee;
+  --n-warning: #ca8a04;
+  --n-warning-weak: #fdf6e0;
+  --n-danger: #dc2626;
+  --n-danger-weak: #fdecec;
+  --n-info: #15803d;
+  --n-info-weak: #e9f7ee;
+
+  --n-chart-1: #15803d;
+  --n-chart-2: #0e7490;
+  --n-chart-3: #a16207;
+  --n-chart-4: #7c3aed;
+  --n-chart-5: #db2777;
+  --n-chart-6: #475569;
+
+  --n-sidebar-bg: #0f2018;
+  --n-sidebar-hover: #183026;
+  --n-sidebar-fg: #eaf3ec;
+  --n-sidebar-fg-2: #b9ccbe;
+  --n-sidebar-fg-3: #8ba795;
+  --n-sidebar-fg-4: #648072;
+  --n-sidebar-border: #1e3a2a;
+  --n-sidebar-border-subtle: #17301f;
+  --n-sidebar-border-strong: #27492f;
+  --n-sidebar-accent: #4ade80;
+  --n-sidebar-active: #1b3a2b;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(14 34 22 / 0.05);
+  --n-shadow-sm: 0 1px 3px 0 rgb(14 34 22 / 0.07), 0 1px 2px -1px rgb(14 34 22 / 0.06);
+  --n-shadow-md: 0 4px 12px -2px rgb(14 34 22 / 0.09);
+  --n-shadow-lg: 0 12px 32px -8px rgb(14 34 22 / 0.16);
+  --n-shadow-xl: 0 24px 64px -16px rgb(14 34 22 / 0.24);
+}
+.dark[data-skin='pine'] {
+  --n-bg: #08110c;
+  --n-bg-subtle: #0b160f;
+  --n-surface: #0f1c15;
+  --n-surface-2: #14241b;
+  --n-surface-3: #1b2e22;
+  --n-surface-inset: #0c1711;
+  --n-border: #213529;
+  --n-border-strong: #334b3b;
+  --n-border-subtle: #182a20;
+
+  --n-fg: #e9f2ec;
+  --n-fg-2: #bcd0c2;
+  --n-fg-3: #93a89b;
+  --n-fg-4: #6a8073;
+  --n-fg-inverse: #08110c;
+  --n-bg-inverse: #e9f2ec;
+
+  --n-primary: #4ade80;
+  --n-primary-hover: #86efac;
+  --n-primary-active: #22c55e;
+  --n-primary-weak: #0d2818;
+  --n-primary-weak-2: #133a23;
+  --n-primary-ring: #4ade804d;
+
+  --n-success: #4ade80;
+  --n-success-weak: #0d2818;
+  --n-warning: #fbbf24;
+  --n-warning-weak: #2a2213;
+  --n-danger: #f87171;
+  --n-danger-weak: #2c1618;
+  --n-info: #4ade80;
+  --n-info-weak: #0d2818;
+
+  --n-chart-1: #4ade80;
+  --n-chart-2: #22d3ee;
+  --n-chart-3: #fbbf24;
+  --n-chart-4: #c084fc;
+  --n-chart-5: #f472b6;
+  --n-chart-6: #94a3b8;
+
+  --n-sidebar-bg: #0b1a12;
+  --n-sidebar-hover: #14271b;
+  --n-sidebar-fg: #e6f0e9;
+  --n-sidebar-fg-2: #b4c8ba;
+  --n-sidebar-fg-3: #8aa294;
+  --n-sidebar-fg-4: #61796b;
+  --n-sidebar-border: #1d3527;
+  --n-sidebar-border-subtle: #162b1f;
+  --n-sidebar-border-strong: #264533;
+  --n-sidebar-accent: #86efac;
+  --n-sidebar-active: #17301f;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --n-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --n-shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.5);
+  --n-shadow-lg: 0 16px 40px -12px rgb(0 0 0 / 0.6);
+  --n-shadow-xl: 0 32px 72px -20px rgb(0 0 0 / 0.7);
+}
+
+/* ---- ocean · 深海：海军蓝中性色 + 青蓝主色，冷峻的运维气质 ---- */
+[data-skin='ocean'] {
+  --n-bg: #eef3f9;
+  --n-bg-subtle: #f5f8fc;
+  --n-surface: #ffffff;
+  --n-surface-2: #f3f7fb;
+  --n-surface-3: #e7eef7;
+  --n-surface-inset: #edf3f9;
+  --n-border: #d8e2ee;
+  --n-border-strong: #b9c9dd;
+  --n-border-subtle: #e6edf6;
+
+  --n-fg: #0a1a2b;
+  --n-fg-2: #3d5470;
+  --n-fg-3: #6c85a1;
+  --n-fg-4: #9db0c7;
+  --n-bg-inverse: #0a1a2b;
+
+  --n-primary: #0891b2;
+  --n-primary-hover: #0e7490;
+  --n-primary-active: #155e75;
+  --n-primary-weak: #e6f6f9;
+  --n-primary-weak-2: #c9ecf2;
+  --n-primary-ring: #0891b233;
+
+  --n-success: #0f9d58;
+  --n-success-weak: #e8f7ef;
+  --n-warning: #d97706;
+  --n-warning-weak: #fdf3e3;
+  --n-danger: #dc2626;
+  --n-danger-weak: #fdeced;
+  --n-info: #0891b2;
+  --n-info-weak: #e6f6f9;
+
+  --n-chart-1: #0891b2;
+  --n-chart-2: #2563eb;
+  --n-chart-3: #0d9488;
+  --n-chart-4: #f59e0b;
+  --n-chart-5: #8b5cf6;
+  --n-chart-6: #64748b;
+
+  --n-sidebar-bg: #0b1d33;
+  --n-sidebar-hover: #132a45;
+  --n-sidebar-fg: #e6eff8;
+  --n-sidebar-fg-2: #b3c7dd;
+  --n-sidebar-fg-3: #8299b3;
+  --n-sidebar-fg-4: #5d7591;
+  --n-sidebar-border: #1b3552;
+  --n-sidebar-border-subtle: #16304a;
+  --n-sidebar-border-strong: #244866;
+  --n-sidebar-accent: #67e8f9;
+  --n-sidebar-active: #12324d;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(10 26 43 / 0.05);
+  --n-shadow-sm: 0 1px 3px 0 rgb(10 26 43 / 0.07), 0 1px 2px -1px rgb(10 26 43 / 0.06);
+  --n-shadow-md: 0 4px 14px -4px rgb(10 26 43 / 0.1);
+  --n-shadow-lg: 0 14px 36px -10px rgb(10 26 43 / 0.18);
+  --n-shadow-xl: 0 26px 64px -18px rgb(10 26 43 / 0.26);
+}
+.dark[data-skin='ocean'] {
+  --n-bg: #040b16;
+  --n-bg-subtle: #061020;
+  --n-surface: #0b1626;
+  --n-surface-2: #111f33;
+  --n-surface-3: #17283e;
+  --n-surface-inset: #071120;
+  --n-border: #1b2b42;
+  --n-border-strong: #2c4260;
+  --n-border-subtle: #132237;
+
+  --n-fg: #e8f1fa;
+  --n-fg-2: #b7c9dc;
+  --n-fg-3: #8aa1b9;
+  --n-fg-4: #5f7792;
+  --n-fg-inverse: #040b16;
+  --n-bg-inverse: #e8f1fa;
+
+  --n-primary: #22d3ee;
+  --n-primary-hover: #67e8f9;
+  --n-primary-active: #06b6d4;
+  --n-primary-weak: #0b2430;
+  --n-primary-weak-2: #0f3441;
+  --n-primary-ring: #22d3ee4d;
+
+  --n-success: #34d399;
+  --n-success-weak: #0b2a22;
+  --n-warning: #fbbf24;
+  --n-warning-weak: #2a2213;
+  --n-danger: #f87171;
+  --n-danger-weak: #2c1618;
+  --n-info: #22d3ee;
+  --n-info-weak: #0b2430;
+
+  --n-chart-1: #22d3ee;
+  --n-chart-2: #60a5fa;
+  --n-chart-3: #2dd4bf;
+  --n-chart-4: #fbbf24;
+  --n-chart-5: #a78bfa;
+  --n-chart-6: #94a3b8;
+
+  --n-sidebar-bg: #061323;
+  --n-sidebar-hover: #0d2038;
+  --n-sidebar-fg: #e4eef9;
+  --n-sidebar-fg-2: #b0c4d9;
+  --n-sidebar-fg-3: #849cb5;
+  --n-sidebar-fg-4: #5a728c;
+  --n-sidebar-border: #16283f;
+  --n-sidebar-border-subtle: #112236;
+  --n-sidebar-border-strong: #1f3a55;
+  --n-sidebar-accent: #67e8f9;
+  --n-sidebar-active: #103049;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.32);
+  --n-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.42);
+  --n-shadow-md: 0 6px 16px -4px rgb(0 0 0 / 0.52);
+  --n-shadow-lg: 0 16px 40px -12px rgb(0 0 0 / 0.62);
+  --n-shadow-xl: 0 30px 72px -20px rgb(0 0 0 / 0.72);
+}
+
+/* ---- neon · 霓虹夜航：紫青撞色、深紫侧栏与发光投影，适合大屏与监控 ---- */
+[data-skin='neon'] {
+  --n-bg: #f5f3ff;
+  --n-bg-subtle: #faf9ff;
+  --n-surface: #ffffff;
+  --n-surface-2: #f7f5ff;
+  --n-surface-3: #eeebfa;
+  --n-surface-inset: #f5f3ff;
+  --n-border: #e5e0f5;
+  --n-border-strong: #cbc2e8;
+  --n-border-subtle: #efeafb;
+
+  --n-fg: #191229;
+  --n-fg-2: #4b4066;
+  --n-fg-3: #7c6f99;
+  --n-fg-4: #a89cc2;
+  --n-bg-inverse: #191229;
+
+  --n-primary: #7c3aed;
+  --n-primary-hover: #6d28d9;
+  --n-primary-active: #5b21b6;
+  --n-primary-weak: #f2ebff;
+  --n-primary-weak-2: #e6d7ff;
+  --n-primary-ring: #7c3aed33;
+
+  --n-success: #12a150;
+  --n-success-weak: #e8f7ef;
+  --n-warning: #d97706;
+  --n-warning-weak: #fdf3e3;
+  --n-danger: #e11d48;
+  --n-danger-weak: #fdecf1;
+  --n-info: #7c3aed;
+  --n-info-weak: #f2ebff;
+
+  --n-chart-1: #7c3aed;
+  --n-chart-2: #06b6d4;
+  --n-chart-3: #ec4899;
+  --n-chart-4: #f59e0b;
+  --n-chart-5: #22c55e;
+  --n-chart-6: #6366f1;
+
+  --n-sidebar-bg: #1a1033;
+  --n-sidebar-hover: #241847;
+  --n-sidebar-fg: #f0eaff;
+  --n-sidebar-fg-2: #c3b6e6;
+  --n-sidebar-fg-3: #9785c4;
+  --n-sidebar-fg-4: #6f5f99;
+  --n-sidebar-border: #2f2350;
+  --n-sidebar-border-subtle: #281d46;
+  --n-sidebar-border-strong: #3d2f66;
+  --n-sidebar-accent: #c4b5fd;
+  --n-sidebar-active: #2a1c52;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(43 22 84 / 0.06);
+  --n-shadow-sm: 0 1px 3px 0 rgb(43 22 84 / 0.08), 0 1px 2px -1px rgb(43 22 84 / 0.06);
+  --n-shadow-md: 0 6px 18px -6px rgb(76 29 149 / 0.14);
+  --n-shadow-lg: 0 16px 40px -12px rgb(76 29 149 / 0.22);
+  --n-shadow-xl: 0 28px 72px -20px rgb(76 29 149 / 0.3);
+}
+.dark[data-skin='neon'] {
+  --n-bg: #07040f;
+  --n-bg-subtle: #0b0718;
+  --n-surface: #120c22;
+  --n-surface-2: #180f2c;
+  --n-surface-3: #201539;
+  --n-surface-inset: #0a0616;
+  --n-border: #271a44;
+  --n-border-strong: #3b2a60;
+  --n-border-subtle: #1d1334;
+
+  --n-fg: #f1ecff;
+  --n-fg-2: #c8bde9;
+  --n-fg-3: #9b8bc4;
+  --n-fg-4: #6f619b;
+  --n-fg-inverse: #07040f;
+  --n-bg-inverse: #f1ecff;
+
+  --n-primary: #a78bfa;
+  --n-primary-hover: #c4b5fd;
+  --n-primary-active: #8b5cf6;
+  --n-primary-weak: #221a3a;
+  --n-primary-weak-2: #2e2450;
+  --n-primary-ring: #a78bfa4d;
+
+  --n-success: #34d399;
+  --n-success-weak: #10291f;
+  --n-warning: #fbbf24;
+  --n-warning-weak: #2a2213;
+  --n-danger: #fb7185;
+  --n-danger-weak: #2c161b;
+  --n-info: #a78bfa;
+  --n-info-weak: #221a3a;
+
+  --n-chart-1: #a78bfa;
+  --n-chart-2: #22d3ee;
+  --n-chart-3: #f472b6;
+  --n-chart-4: #fbbf24;
+  --n-chart-5: #4ade80;
+  --n-chart-6: #818cf8;
+
+  --n-sidebar-bg: #0d0820;
+  --n-sidebar-hover: #171030;
+  --n-sidebar-fg: #efe9ff;
+  --n-sidebar-fg-2: #c2b6e4;
+  --n-sidebar-fg-3: #9685bf;
+  --n-sidebar-fg-4: #6b5c94;
+  --n-sidebar-border: #241a3f;
+  --n-sidebar-border-subtle: #1c1335;
+  --n-sidebar-border-strong: #33254f;
+  --n-sidebar-accent: #c4b5fd;
+  --n-sidebar-active: #1d1440;
+
+  --n-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.34);
+  --n-shadow-sm: 0 1px 3px 0 rgb(120 60 255 / 0.18);
+  --n-shadow-md: 0 6px 18px -4px rgb(120 60 255 / 0.24);
+  --n-shadow-lg: 0 16px 44px -10px rgb(120 60 255 / 0.3);
+  --n-shadow-xl: 0 30px 80px -18px rgb(120 60 255 / 0.36);
+}
+
+/* ------------------------------------------------------------------ *
+ * 3. 强调色覆盖（可选）
+ *
+ * 皮肤已经给出主色；想把品牌色换成别的颜色时，写 data-accent 即可，
+ * 只影响主色阶、info 与图表第 1 位，其余（中性色 / 图表色板 / 侧栏）仍由皮肤决定。
+ * 未写 data-accent = 跟随皮肤。
+ * ------------------------------------------------------------------ */
+[data-accent='violet'] {
+  --n-primary: #7c3aed;
+  --n-primary-hover: #6d28d9;
+  --n-primary-active: #5b21b6;
+  --n-primary-weak: #f3ebff;
+  --n-primary-weak-2: #e6d7ff;
+  --n-primary-ring: #7c3aed33;
+  --n-chart-1: #7c3aed;
+  --n-info: #7c3aed;
+  --n-info-weak: #f3ebff;
+  --n-sidebar-accent: #a78bfa;
+  --n-sidebar-active: #2a1c52;
+}
+.dark[data-accent='violet'] {
+  --n-primary: #a78bfa;
+  --n-primary-hover: #bda5ff;
+  --n-primary-active: #8b5cf6;
+  --n-primary-weak: #221a33;
+  --n-primary-weak-2: #2f2347;
+  --n-primary-ring: #a78bfa4d;
+  --n-chart-1: #a78bfa;
+  --n-info: #a78bfa;
+  --n-info-weak: #221a33;
+  --n-sidebar-accent: #c4b5fd;
+  --n-sidebar-active: #2a2140;
+}
+
+[data-accent='emerald'] {
+  --n-primary: #059669;
+  --n-primary-hover: #047857;
+  --n-primary-active: #036e4f;
+  --n-primary-weak: #e6f7f1;
+  --n-primary-weak-2: #ccf0e3;
+  --n-primary-ring: #05966933;
+  --n-chart-1: #059669;
+  --n-info: #059669;
+  --n-info-weak: #e6f7f1;
+  --n-sidebar-accent: #6ee7b7;
+  --n-sidebar-active: #17372b;
+}
+.dark[data-accent='emerald'] {
+  --n-primary: #34d399;
+  --n-primary-hover: #6ee7b7;
+  --n-primary-active: #10b981;
+  --n-primary-weak: #10291f;
+  --n-primary-weak-2: #17402f;
+  --n-primary-ring: #34d3994d;
+  --n-chart-1: #34d399;
+  --n-info: #34d399;
+  --n-info-weak: #10291f;
+  --n-sidebar-accent: #6ee7b7;
+  --n-sidebar-active: #17372b;
+}
+
+[data-accent='amber'] {
+  --n-primary: #d97706;
+  --n-primary-hover: #b45309;
+  --n-primary-active: #92400e;
+  --n-primary-weak: #fdf3e3;
+  --n-primary-weak-2: #fbe6c7;
+  --n-primary-ring: #d9770633;
+  --n-chart-1: #d97706;
+  --n-info: #d97706;
+  --n-info-weak: #fdf3e3;
+  --n-sidebar-accent: #fcd34d;
+  --n-sidebar-active: #3a2a12;
+}
+.dark[data-accent='amber'] {
+  --n-primary: #fbbf24;
+  --n-primary-hover: #fcd34d;
+  --n-primary-active: #f59e0b;
+  --n-primary-weak: #2a2213;
+  --n-primary-weak-2: #3d3118;
+  --n-primary-ring: #fbbf244d;
+  --n-chart-1: #fbbf24;
+  --n-info: #fbbf24;
+  --n-info-weak: #2a2213;
+  --n-sidebar-accent: #fcd34d;
+  --n-sidebar-active: #3a2a12;
+}
+
+[data-accent='rose'] {
+  --n-primary: #e11d48;
+  --n-primary-hover: #be123c;
+  --n-primary-active: #9f1239;
+  --n-primary-weak: #fdecf1;
+  --n-primary-weak-2: #fbd9e3;
+  --n-primary-ring: #e11d4833;
+  --n-chart-1: #e11d48;
+  --n-info: #e11d48;
+  --n-info-weak: #fdecf1;
+  --n-sidebar-accent: #fda4af;
+  --n-sidebar-active: #3a1c26;
+}
+.dark[data-accent='rose'] {
+  --n-primary: #fb7185;
+  --n-primary-hover: #fda4af;
+  --n-primary-active: #f43f5e;
+  --n-primary-weak: #2c161b;
+  --n-primary-weak-2: #401f26;
+  --n-primary-ring: #fb71854d;
+  --n-chart-1: #fb7185;
+  --n-info: #fb7185;
+  --n-info-weak: #2c161b;
+  --n-sidebar-accent: #fda4af;
+  --n-sidebar-active: #3a1c26;
+}
+
+[data-accent='rosewood'] {
+  --n-primary: #be185d;
+  --n-primary-hover: #9d174d;
+  --n-primary-active: #831843;
+  --n-primary-weak: #fdf0f5;
+  --n-primary-weak-2: #fbdfea;
+  --n-primary-ring: #be185d33;
+  --n-chart-1: #be185d;
+  --n-info: #be185d;
+  --n-info-weak: #fdf0f5;
+  --n-sidebar-accent: #f9a8d4;
+  --n-sidebar-active: #3b1a2c;
+}
+.dark[data-accent='rosewood'] {
+  --n-primary: #f472b6;
+  --n-primary-hover: #f9a8d4;
+  --n-primary-active: #ec4899;
+  --n-primary-weak: #2b1620;
+  --n-primary-weak-2: #3f1f2e;
+  --n-primary-ring: #f472b64d;
+  --n-chart-1: #f472b6;
+  --n-info: #f472b6;
+  --n-info-weak: #2b1620;
+  --n-sidebar-accent: #f9a8d4;
+  --n-sidebar-active: #3b1a2c;
+}
+
+[data-accent='ocean'] {
+  --n-primary: #0e7490;
+  --n-primary-hover: #0b5c73;
+  --n-primary-active: #084a5c;
+  --n-primary-weak: #ebf8fb;
+  --n-primary-weak-2: #d3f0f6;
+  --n-primary-ring: #0e749033;
+  --n-chart-1: #0e7490;
+  --n-info: #0e7490;
+  --n-info-weak: #ebf8fb;
+  --n-sidebar-accent: #67e8f9;
+  --n-sidebar-active: #12324d;
+}
+.dark[data-accent='ocean'] {
+  --n-primary: #22d3ee;
+  --n-primary-hover: #67e8f9;
+  --n-primary-active: #06b6d4;
+  --n-primary-weak: #0b2430;
+  --n-primary-weak-2: #0f3441;
+  --n-primary-ring: #22d3ee4d;
+  --n-chart-1: #22d3ee;
+  --n-info: #22d3ee;
+  --n-info-weak: #0b2430;
+  --n-sidebar-accent: #67e8f9;
+  --n-sidebar-active: #12324d;
+}
+
+[data-accent='sunset'] {
+  --n-primary: #ea580c;
+  --n-primary-hover: #c2410c;
+  --n-primary-active: #9a3412;
+  --n-primary-weak: #fff4ec;
+  --n-primary-weak-2: #ffe6d3;
+  --n-primary-ring: #ea580c33;
+  --n-chart-1: #ea580c;
+  --n-info: #ea580c;
+  --n-info-weak: #fff4ec;
+  --n-sidebar-accent: #fdba74;
+  --n-sidebar-active: #3a2312;
+}
+.dark[data-accent='sunset'] {
+  --n-primary: #fb923c;
+  --n-primary-hover: #fdba74;
+  --n-primary-active: #f97316;
+  --n-primary-weak: #2e1a0d;
+  --n-primary-weak-2: #432413;
+  --n-primary-ring: #fb923c4d;
+  --n-chart-1: #fb923c;
+  --n-info: #fb923c;
+  --n-info-weak: #2e1a0d;
+  --n-sidebar-accent: #fdba74;
+  --n-sidebar-active: #3a2312;
+}
+
+[data-accent='forest'] {
+  --n-primary: #15803d;
+  --n-primary-hover: #116932;
+  --n-primary-active: #0d5427;
+  --n-primary-weak: #edf9f1;
+  --n-primary-weak-2: #d8f2e1;
+  --n-primary-ring: #15803d33;
+  --n-chart-1: #15803d;
+  --n-info: #15803d;
+  --n-info-weak: #edf9f1;
+  --n-sidebar-accent: #86efac;
+  --n-sidebar-active: #1a3a26;
+}
+.dark[data-accent='forest'] {
+  --n-primary: #4ade80;
+  --n-primary-hover: #86efac;
+  --n-primary-active: #22c55e;
+  --n-primary-weak: #0d2818;
+  --n-primary-weak-2: #133a23;
+  --n-primary-ring: #4ade804d;
+  --n-chart-1: #4ade80;
+  --n-info: #4ade80;
+  --n-info-weak: #0d2818;
+  --n-sidebar-accent: #86efac;
+  --n-sidebar-active: #1a3a26;
+}
+
+[data-accent='lavender'] {
+  --n-primary: #6366f1;
+  --n-primary-hover: #4f46e5;
+  --n-primary-active: #4338ca;
+  --n-primary-weak: #eff0fe;
+  --n-primary-weak-2: #e0e2fd;
+  --n-primary-ring: #6366f133;
+  --n-chart-1: #6366f1;
+  --n-info: #6366f1;
+  --n-info-weak: #eff0fe;
+  --n-sidebar-accent: #c7d2fe;
+  --n-sidebar-active: #262a4a;
+}
+.dark[data-accent='lavender'] {
+  --n-primary: #a5b4fc;
+  --n-primary-hover: #c7d2fe;
+  --n-primary-active: #818cf8;
+  --n-primary-weak: #1c1e33;
+  --n-primary-weak-2: #272a4a;
+  --n-primary-ring: #a5b4fc4d;
+  --n-chart-1: #a5b4fc;
+  --n-info: #a5b4fc;
+  --n-info-weak: #1c1e33;
+  --n-sidebar-accent: #c7d2fe;
+  --n-sidebar-active: #262a4a;
+}
+
+/* ------------------------------------------------------------------ *
+ * 4. 圆角 / 字体 / 密度
+ * ------------------------------------------------------------------ */
+
+/* 圆角风格：0 / 4 / 8 / 14 / 20 */
+[data-radius='none'] {
+  --n-radius: 0px;
+}
+[data-radius='small'] {
+  --n-radius: 0.25rem;
+}
+[data-radius='medium'] {
+  --n-radius: 0.5rem;
+}
+[data-radius='large'] {
+  --n-radius: 0.875rem;
+}
+[data-radius='xlarge'] {
+  --n-radius: 1.25rem;
+}
+
+/* 字体族 */
+[data-font='sans'] {
+  --n-font-base:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  --n-font-serif: 'Georgia', 'Songti SC', 'SimSun', serif;
+  --n-font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+}
+[data-font='serif'] {
+  --n-font-base: 'Georgia', 'Songti SC', 'SimSun', 'Noto Serif SC', serif;
+  --n-font-serif: 'Georgia', 'Songti SC', 'SimSun', serif;
+  --n-font-mono: 'JetBrains Mono', Consolas, monospace;
+}
+[data-font='mono'] {
+  --n-font-base: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  --n-font-serif: 'Georgia', serif;
+  --n-font-mono: 'JetBrains Mono', Consolas, monospace;
+}
+
+/* 密度：四档（含超大） */
+[data-density='compact'] {
+  --n-control-h: 1.875rem;
+  --n-control-h-sm: 1.5rem;
+  --n-control-h-lg: 2.25rem;
+  --n-row-h: 2.5rem;
+}
+[data-density='comfortable'] {
+  --n-control-h: 2.375rem;
+  --n-control-h-sm: 1.875rem;
+  --n-control-h-lg: 2.75rem;
+  --n-row-h: 3.375rem;
+}
+[data-density='ultra'] {
+  --n-control-h: 2.625rem;
+  --n-control-h-sm: 2.125rem;
+  --n-control-h-lg: 3rem;
+  --n-row-h: 3.875rem;
+}
+
+/* ------------------------------------------------------------------ *
+ * 5. 外壳：菜单布局 / 整体布局 / 内容宽度 / 文字方向
+ * ------------------------------------------------------------------ */
+
+/* 菜单布局：导航摆在哪
+ *
+ * 六种布局的差别刻意放在「几何」而不是「配色」上：
+ * 配色是皮肤的职责（深色导航的皮肤换布局不该突然变浅），
+ * 布局只决定有几列、哪一列是侧栏、顶栏是否通栏。
+ *
+ * 组件侧的实现见 `layout/app-shell.tsx`；这里只提供与布局相关的度量，
+ * 让「双列的第二列多宽」这类问题有唯一出处，而不是散落在 JSX 的行内样式里。
+ */
+[data-menu-layout='dual'] {
+  --n-rail-w: 4.5rem;
+  --n-dual-w: 13rem;
+  --n-dual-icon-w: 3.5rem;
+}
+/* 双列折叠态：第二列收成图标条，而不是宽度归零 ——
+ * 整块消失会让人以为点错了按钮；留一列图标，用户一眼看出「只是窄了」，点开关能拉回来 */
+[data-menu-layout='dual'][data-collapsed] {
+  --n-dual-w: var(--n-dual-icon-w);
+}
+/* 混合 / 侧边栏：顶栏通栏，内容区从顶栏下沿起算，页面留白可以小一档。
+ * 放在 `data-layout` 之前：整体布局的紧凑 / 全屏仍然优先覆盖留白。 */
+[data-menu-layout='mixed'],
+[data-menu-layout='sidebar'] {
+  --n-page-pad-x: 1.125rem;
+}
+
+/* 「整体布局」三档的实际差异 */
+[data-layout='compact'] {
+  --n-header-h: 3rem;
+  --n-page-pad-x: 1rem;
+}
+[data-layout='fullscreen'] {
+  --n-header-h: 3.25rem;
+  --n-page-pad-x: 0.75rem;
+}
+
+.n-page-container {
+  padding-inline: var(--n-page-pad-x);
+}
+@media (max-width: 639px) {
+  .n-page-container {
+    padding-inline: 1rem;
+  }
+}
+/* 内容宽度：PageContainer 通过 data-size 声明自己的基准宽度，这里统一放开 / 收口
+ *
+ * 宽度**分级放宽**，而不是随视口线性放大：
+ * 1440 用 1500 收口（与设计稿一致），之后每跨一档放宽一档，封顶 2400。
+ *
+ * 为什么分级而不是铺满：
+ * - 铺满会让表格与卡片无节制变宽，单行文字超过 200 字符，读起来要横跨半个屏幕
+ * - 死守 1500 又会让 2850 的屏把内容全挤在中间（这就是最初的报障）
+ * 分级封顶是二者的折中：1440~2400 之间始终占用 83%~93% 的可用宽度，
+ * 再往上多出来的空间交给「更多列 + 更大的图表」消化。
+ */
+.n-page-container[data-size='sm'] {
+  max-width: 55rem;
+}
+.n-page-container[data-size='md'] {
+  max-width: 73.75rem;
+}
+.n-page-container[data-size='lg'] {
+  max-width: 93.75rem;
+}
+/* 居中：整页外壳按档放宽；全宽：连页面自带的窄版式也一并放开 */
+[data-content='centered'] .n-page-shell {
+  max-width: 93.75rem;
+  margin-inline: auto;
+}
+@media (min-width: 1680px) {
+  .n-page-container[data-size='lg'],
+  [data-content='centered'] .n-page-shell {
+    max-width: 100rem; /* 1600 */
+  }
+}
+@media (min-width: 1920px) {
+  .n-page-container[data-size='lg'],
+  [data-content='centered'] .n-page-shell {
+    max-width: 110rem; /* 1760 */
+  }
+}
+@media (min-width: 2240px) {
+  .n-page-container[data-size='lg'],
+  [data-content='centered'] .n-page-shell {
+    max-width: 128rem; /* 2048 */
+  }
+}
+@media (min-width: 2560px) {
+  .n-page-container[data-size='lg'],
+  [data-content='centered'] .n-page-shell {
+    max-width: 137.5rem; /* 2200，封顶 */
+  }
+}
+[data-content='full'] .n-page-container {
+  max-width: none;
+}
+
+/* RTL 基础支持：图标方向翻转 */
+[dir='rtl'] .n-flip-rtl {
+  transform: scaleX(-1);
+}
+
+/* ------------------------------------------------------------------ *
+ * 6. 注册到 Tailwind 主题变量，生成 bg-surface / text-fg-2 / border-line 等工具类
+ * ------------------------------------------------------------------ */
+@theme inline {
+  --color-bg: var(--n-bg);
+  --color-bg-subtle: var(--n-bg-subtle);
+  --color-surface: var(--n-surface);
+  --color-surface-2: var(--n-surface-2);
+  --color-surface-3: var(--n-surface-3);
+  --color-inset: var(--n-surface-inset);
+  --color-line: var(--n-border);
+  --color-line-strong: var(--n-border-strong);
+  --color-line-subtle: var(--n-border-subtle);
+
+  --color-fg: var(--n-fg);
+  --color-fg-2: var(--n-fg-2);
+  --color-fg-3: var(--n-fg-3);
+  --color-fg-4: var(--n-fg-4);
+  --color-fg-inverse: var(--n-fg-inverse);
+  --color-inverse: var(--n-bg-inverse);
+
+  --color-primary: var(--n-primary);
+  --color-primary-hover: var(--n-primary-hover);
+  --color-primary-active: var(--n-primary-active);
+  --color-primary-weak: var(--n-primary-weak);
+  --color-primary-weak-2: var(--n-primary-weak-2);
+  --color-primary-fg: var(--n-primary-fg);
+  /* 焦点环：必须注册成 Tailwind 颜色，否则 ring-primary-ring 是无效类，
+     会退化成 currentColor（深色下是一圈亮白粗边） */
+  --color-primary-ring: var(--n-primary-ring);
+
+  --color-success: var(--n-success);
+  --color-success-weak: var(--n-success-weak);
+  --color-warning: var(--n-warning);
+  --color-warning-weak: var(--n-warning-weak);
+  --color-danger: var(--n-danger);
+  --color-danger-weak: var(--n-danger-weak);
+  --color-info: var(--n-info);
+  --color-info-weak: var(--n-info-weak);
+
+  --color-chart-1: var(--n-chart-1);
+  --color-chart-2: var(--n-chart-2);
+  --color-chart-3: var(--n-chart-3);
+  --color-chart-4: var(--n-chart-4);
+  --color-chart-5: var(--n-chart-5);
+  --color-chart-6: var(--n-chart-6);
+
+  /* 侧栏语义色：面板与缩略图直接消费 */
+  --color-sidebar: var(--n-sidebar-bg);
+  --color-sidebar-hover: var(--n-sidebar-hover);
+  --color-sidebar-fg: var(--n-sidebar-fg);
+  --color-sidebar-fg-2: var(--n-sidebar-fg-2);
+  --color-sidebar-fg-3: var(--n-sidebar-fg-3);
+  --color-sidebar-line: var(--n-sidebar-border);
+
+  --radius-sm: var(--n-radius-sm);
+  --radius-md: var(--n-radius);
+  --radius-lg: var(--n-radius-lg);
+  --radius-xl: var(--n-radius-xl);
+  --radius-full: var(--n-radius-full);
+
+  --shadow-xs: var(--n-shadow-xs);
+  --shadow-sm: var(--n-shadow-sm);
+  --shadow-md: var(--n-shadow-md);
+  --shadow-lg: var(--n-shadow-lg);
+  --shadow-xl: var(--n-shadow-xl);
+
+  --font-sans:
+    'Inter var', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    'JetBrains Mono', 'SFMono-Regular', ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  /**
+   * 宽屏断点
+   *
+   * Tailwind 默认最大只到 2xl（1536px）。主流后台在 1920 / 2560 上需要再加两档列数，
+   * 否则 2850 的屏仍然是 1536 那套栅格 —— 卡片被动变宽，信息密度反而下降。
+   * 这里补齐 3xl(1920) / 4xl(2560)，页面里直接写 `3xl:grid-cols-6` 即可。
+   */
+  --breakpoint-3xl: 120rem; /* 1920 */
+  --breakpoint-4xl: 160rem; /* 2560 */
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ------------------------------------------------------------------ *
+ * 7. 基础层
+ * ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--n-border);
+  }
+
+  /**
+   * 根字号恒定 —— 不再随视口等比放大
+   *
+   * 曾经试过 `clamp(16px, 1.1111vw, 32px)` 让整页等比放大，
+   * 结论是行不通，原因有两条：
+   * 1. **媒体查询里的 rem 恒按 16px 折算**（与根字号无关），所以 Tailwind 的
+   *    sm/md/lg/xl/2xl 断点不会跟着放大。根字号 1.98 倍时，2850px 屏上的栅格
+   *    仍只有 1280px 档的列数 —— 屏幕还有一倍空间，卡片却不再加列，只能被撑大。
+   * 2. 面板里任何写死的 px（图标、画布、图表内联尺寸）都不会跟着长，
+   *    结果就是「字变大了、图标没变」，越放大越失衡。
+   *
+   * 现在的做法与 Ant Design / Ant Design Pro / shadcn / GitHub / Linear 一致：
+   * 字号固定，靠**断点 + 内容区最大宽度 + 容器查询**去适配宽屏 ——
+   * 大屏看到的是更多列、更宽的表，而不是把 1440 的界面吹气球。
+   */
+  html {
+    font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--n-bg);
+    color: var(--n-fg);
+    font-family: var(--n-font-base, var(--font-sans));
+    /* 0.8125rem = 设计稿的 13px（根字号恒为 16px，rem 只是书写习惯） */
+    font-size: 0.8125rem;
+    line-height: 1.5715;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--n-primary) 24%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--n-primary) 70%, transparent);
+    outline-offset: 1px;
+  }
+
+  /* 表单控件自带 focus-within 外环（border + ring），
+   * 再叠加浏览器默认 outline 会变成「双重描边」——截图里那个难看的蓝框。
+   * 这里只在控件内部关掉默认 outline，键盘可达性由外层 ring 承担。
+   */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role='combobox']:focus-visible,
+  [contenteditable='true']:focus-visible {
+    outline: none;
+  }
+
+  /* ---------------- 自动填充（autofill） ----------------
+   *
+   * 现象：登录页输入框「中间一块蓝灰底、左边图标区和上下内缩边仍是本来该有的表面色」，
+   * 看起来像配色错乱，重启浏览器、清空重输都还在。
+   *
+   * 成因：Chromium 的 UA 样式表对自动填充态写死了
+   *     input:-internal-autofill-selected {
+   *       background-color: light-dark(#e8f0fe, rgba(70,90,126,0.4)) !important;
+   *       color: FieldText !important;
+   *     }
+   * 属于「UA 重要声明」，级联顺序为 UA 重要 > 用户重要 > 作者重要，
+   * 所以作者样式**即使加 !important 也压不回去**。
+   * 而本项目 Input 把表面色画在外层 div、内部 input 是透明底，
+   * UA 只给 input 自己的盒子上了底色：
+   * 左边界 = 外层 padding + 图标 + gap，右边界 = 外层 padding，
+   * 与外层圆角、边框都错位 —— 正是截图里那块「内嵌矩形」。
+   *
+   * 修复：不跟 UA 抢 background-color，改用 UA 压不住的其它绘制通道：
+   * - `box-shadow: inset`（绘制在背景之上、边框之下，可整块覆盖）
+   * - `-webkit-text-fill-color`（优先级高于被强制的 color）
+   * - `caret-color`（输入光标同样会被 UA 改写）
+   * 颜色取控件下发的 `--n-field-bg`（缺省回落到 surface，与 Input / Select /
+   * SearchInput 的默认底一致），因此填满后与容器边缘无缝。
+   *
+   * 注意：不用「长时长 transition 冻结背景色」那套写法 ——
+   * 它会让该输入框之后所有背景过渡全部失灵，代价大于收益。
+   * ------------------------------------------------------------------ */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  input:autofill,
+  textarea:-webkit-autofill,
+  textarea:autofill {
+    -webkit-text-fill-color: var(--n-field-fg, var(--n-fg));
+    -webkit-box-shadow: inset 0 0 0 100vmax var(--n-field-bg, var(--n-surface));
+    box-shadow: inset 0 0 0 100vmax var(--n-field-bg, var(--n-surface));
+    caret-color: var(--n-fg);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+  }
+
+  /* 滚动条：默认隐藏，鼠标进入容器才淡入 —— 避免常驻灰条打断视觉 */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.2s ease;
+  }
+  *:hover {
+    scrollbar-color: color-mix(in oklab, var(--n-border-strong) 90%, transparent) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.2s ease;
+  }
+  *:hover::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklab, var(--n-border-strong) 90%, transparent);
+  }
+  *:hover::-webkit-scrollbar-thumb:hover {
+    background-color: var(--n-fg-4);
+  }
+  /* 键盘 / 触摸设备不依赖 hover：始终显示，保证可发现性 */
+  @media (hover: none) {
+    * {
+      scrollbar-color: color-mix(in oklab, var(--n-border-strong) 90%, transparent) transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: color-mix(in oklab, var(--n-border-strong) 90%, transparent);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 8. 组件层
+ * ------------------------------------------------------------------ */
+@layer components {
+  /**
+   * 外框标记（侧栏 / 顶栏 / 页签栏）
+   *
+   * 这层类名现在只是**语义标记**，不再做任何缩放：
+   * 根字号恒为 16px，外框与内容本来就同尺度，不需要反缩放。
+   *
+   * 曾经在这上面挂过 `zoom: calc(16px / 1rem)` 去抵消根字号的等比放大，
+   * 那套做法已经连同根字号缩放一起移除（原因见 @layer base 里 html 的注释）。
+   * 保留类名是为了让 `ChromeScope` / `useChromePortal` 这条链路继续可读：
+   * 从外框弹出的浮层（提示 / 下拉）会通过它得知「自己与内容同尺度」，不需要补偿。
+   */
+  .n-chrome {
+    /* 语义标记，无样式 */
+  }
+
+  .n-scroll-fade {
+    scrollbar-gutter: stable;
+  }
+
+  /* ---- 侧栏 ----
+   * 侧栏是一块「独立着色的表面」：皮肤可以让它在浅色模式下就是深色轨道。
+   * 这里把子组件已经在用的语义变量就地重映射，导航项、分组标题、hover 底色、
+   * 选中态全部自动跟随，不需要给每个 className 加分支。
+   * 注意：只重映射，不引入新的类名依赖。
+   */
+  .n-sidebar {
+    background-color: var(--n-sidebar-bg);
+    color: var(--n-sidebar-fg);
+    border-inline-end: 1px solid var(--n-sidebar-border);
+
+    --n-surface: var(--n-sidebar-bg);
+    --n-surface-2: var(--n-sidebar-hover);
+    --n-surface-3: var(--n-sidebar-hover);
+    --n-fg: var(--n-sidebar-fg);
+    --n-fg-2: var(--n-sidebar-fg-2);
+    --n-fg-3: var(--n-sidebar-fg-3);
+    --n-fg-4: var(--n-sidebar-fg-4);
+    --n-border: var(--n-sidebar-border);
+    --n-border-subtle: var(--n-sidebar-border-subtle);
+    --n-border-strong: var(--n-sidebar-border-strong);
+    --n-primary: var(--n-sidebar-accent);
+    --n-primary-weak: var(--n-sidebar-active);
+    --n-bg-inverse: var(--n-sidebar-fg);
+    --n-fg-inverse: var(--n-sidebar-bg);
+  }
+
+  /* ---- 固定列（sticky）----
+   * 固定列必须是实底：半透明会让滚动内容透出来。
+   * 悬停 / 选中态在 sticky 单元格上单独还原，保证与普通列视觉一致。
+   * 边缘投影用 inset 阴影，不占布局、不触发重排。
+   */
+  .n-sticky-cell {
+    background-color: var(--n-surface);
+  }
+  .n-sticky-head {
+    background-color: var(--n-surface-2);
+  }
+  tr:hover > .n-sticky-cell {
+    background-color: var(--n-surface-2);
+  }
+  tr[data-selected] > .n-sticky-cell {
+    background-color: color-mix(in oklab, var(--n-primary-weak) 40%, var(--n-surface));
+  }
+  .n-sticky-edge-l {
+    box-shadow: inset -10px 0 10px -10px rgb(16 24 40 / 0.22);
+  }
+  .n-sticky-edge-r {
+    box-shadow: inset 10px 0 10px -10px rgb(16 24 40 / 0.22);
+  }
+  .dark .n-sticky-edge-l {
+    box-shadow: inset -10px 0 10px -10px rgb(0 0 0 / 0.65);
+  }
+  .dark .n-sticky-edge-r {
+    box-shadow: inset 10px 0 10px -10px rgb(0 0 0 / 0.65);
+  }
+
+  /* 页面进入动画，仅在未开启「减少动效」时生效 */
+  .n-enter {
+    animation: n-enter 0.28s var(--ease-out-expo) both;
+  }
+
+  /* 轻量淡入：悬浮提示、气泡等「贴脸出现」的元素用它，避免生硬 */
+  .n-fade-in {
+    animation: n-fade-in 0.14s var(--ease-out-expo) both;
+  }
+
+  /**
+   * 原地展开的纯淡入
+   *
+   * 与 `.n-fade-in` 的区别是**不带任何位移**：后者的关键帧里有 `-50%` 的居中位移
+   * （是给下拉菜单/气泡定位用的），套在文档流里的展开面板上会让面板整体上移，
+   * 压到上面的标题行上 —— 表现为「文字叠在一起」。
+   * 所以行内展开、面板展开一律用这个。
+   */
+  .n-reveal {
+    animation: n-fade-only 0.16s ease-out both;
+  }
+
+  .n-skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--n-surface-3);
+  }
+  .n-skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--n-surface) 60%, transparent),
+      transparent
+    );
+    animation: n-shimmer 1.6s infinite;
+  }
+
+  /* 网格背景（用于工作台/登录页氛围） */
+  .n-grid-bg {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--n-border) 55%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--n-border) 55%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 2.75rem 2.75rem;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  /* ---------------- 企业级表格 ----------------
+   * 统一表头层级、斑马纹、悬停高亮与数值对齐。
+   * 深色 / 浅色共用同一套变量，避免各页面各写一份。
+   * 用法：<table className="n-table" data-striped="true" data-hover="true">
+   * ------------------------------------------- */
+  .n-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.8125rem;
+  }
+
+  .n-table thead th {
+    background-color: var(--n-surface-2);
+    color: var(--n-fg-3);
+    font-size: 0.71875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--n-border);
+  }
+
+  .n-table tbody td {
+    color: var(--n-fg-2);
+    border-bottom: 1px solid var(--n-border-subtle);
+    vertical-align: middle;
+  }
+
+  .n-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* 斑马纹：只染偶数行，深浅色下都保持低对比 */
+  .n-table[data-striped='true'] tbody tr:nth-child(even) td {
+    background-color: color-mix(in oklab, var(--n-surface-2) 55%, transparent);
+  }
+
+  /* 悬停：品牌色极浅混合，比纯灰更「活」，且不抢选中态 */
+  .n-table[data-hover='true'] tbody tr:hover td {
+    background-color: color-mix(in oklab, var(--n-primary) 8%, var(--n-surface));
+  }
+
+  /* 选中行优先级最高 */
+  .n-table tbody tr[data-selected='true'] td {
+    background-color: color-mix(in oklab, var(--n-primary) 13%, var(--n-surface));
+  }
+
+  /* 数值列统一等宽数字，避免宽度跳动 */
+  .n-table .n-num {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  /* 表头吸顶（长列表） */
+  .n-table[data-sticky='true'] thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: inset 0 -1px 0 var(--n-border);
+  }
+
+  /* 行高随密度变化 */
+  .n-table[data-density='compact'] tbody td {
+    height: 2.375rem;
+  }
+  .n-table[data-density='default'] tbody td {
+    height: 2.875rem;
+  }
+  .n-table[data-density='comfortable'] tbody td {
+    height: 3.375rem;
+  }
+
+  /* 侧栏导航滚动条：细、默认透明 */
+  .n-sidebar-nav::-webkit-scrollbar {
+    width: 6px;
+  }
+  .n-sidebar-nav::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: var(--n-sidebar-border-strong);
+  }
+  .n-sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background-color: var(--n-sidebar-fg-4);
+  }
+  .n-sidebar-nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* 跳到主内容（键盘用户） */
+  .n-skip-link {
+    position: fixed;
+    top: 0.5rem;
+    inset-inline-start: 0.5rem;
+    z-index: 3000;
+    translate: 0 -200%;
+    padding: 0.5rem 0.875rem;
+    border-radius: var(--n-radius);
+    background-color: var(--n-primary);
+    color: var(--n-primary-fg);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    box-shadow: var(--n-shadow-lg);
+    transition: translate 0.2s var(--ease-out-expo);
+  }
+  .n-skip-link:focus-visible {
+    translate: 0 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 9. 关键帧
+ * ------------------------------------------------------------------ */
+@keyframes n-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes n-fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-4px, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@keyframes n-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes n-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 流光边框：通过 @property 让角度可动画 */
+@property --beam-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes n-beam-rotate {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+/* 跑马灯 */
+@keyframes n-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* 淡入上浮（用于 KPI 区块逐个入场） */
+@keyframes n-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.n-rise {
+  animation: n-rise 0.45s var(--ease-out-expo) both;
+}
+
+/* ------------------------------------------------------------------ *
+ * 页面切换动画
+ *
+ * 用 opacity + 极小位移，而不是大位移或缩放：
+ * 大位移会让「同一张表在不同页之间跳」的观感变差，微动效反而更贵气。
+ * 时长 220ms，短到不打断操作，长到能被眼睛捕捉。
+ *
+ * 为什么不用 `filter: blur()`（实测后去掉）
+ * ----------------------------------------
+ * 早期版本在 from 帧加了 `filter: blur(1.5px)`，想做出「对焦」的观感。
+ * 但整页模糊是浏览器最贵的绘制操作之一，而这段动画挂在**每一页的最外层容器**上：
+ * 移动档（Slow-4G + 4×CPU）实测 full vs reduced 的 FCP 差 268~412ms、
+ * TBT 差 13~269ms（`scripts/_motion-cost.mjs`）。1.5px 的模糊几乎看不出来，
+ * 代价却是一整页的离屏合成，不值得。
+ * `will-change` 同理：它给每页容器永久提升一个合成层，
+ * 动画结束后并不会自动回收。现在只在动画期间由浏览器按需提升。
+ * ------------------------------------------------------------------ */
+@keyframes n-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.n-page-enter {
+  animation: n-page-enter 0.24s var(--ease-out-expo) both;
+}
+
+/* 内容卡片逐个入场（页面内的次级节奏，延迟由行内 --i 控制） */
+@keyframes n-stagger {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.n-stagger {
+  animation: n-stagger 0.32s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* ------------------------------------------------------------------ *
+ * 10. 减少动效
+ *
+ * 不再用全局 `!important` 把动画时长压到 0：那会让 OS 开启「减少动效」的用户
+ * 完全失去所有过渡反馈（侧栏瞬移、页面硬切），体验反而更粗糙。
+ * 这里改为「压缩但不消失」：
+ * - 位移类动画降为纯淡入
+ * - 循环动画（流光、跑马灯）停止
+ * - 过渡时长压到 120ms
+ *
+ * 应用内还有显式开关（设置页 / 主题面板），可覆盖系统偏好。
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .n-stagger,
+  .n-rise {
+    animation: n-fade-only 0.2s ease-out both;
+  }
+  .n-page-enter {
+    animation: n-fade-only 0.16s ease-out both;
+  }
+  .n-skeleton::after,
+  .n-beam,
+  .n-marquee__track,
+  /* Tailwind 的循环动画：系统级「减少动效」同样要停，
+     否则 OS 设置与浏览器媒体查询保持一致时仍有脉冲点在跳 */
+  .animate-ping,
+  .animate-spin,
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+  }
+  .animate-ping {
+    opacity: 0.45;
+  }
+}
+
+/* 应用内「始终开启动效」：覆盖系统偏好，让用户在关闭系统动画时仍能得到反馈 */
+[data-motion='full'] .n-stagger,
+[data-motion='full'] .n-rise {
+  animation: n-stagger 0.32s var(--ease-out-expo) both;
+}
+[data-motion='full'] .n-page-enter {
+  animation: n-page-enter 0.24s var(--ease-out-expo) both;
+}
+[data-motion='full'] .n-skeleton::after {
+  animation: n-shimmer 1.6s infinite !important;
+}
+[data-motion='full'] .n-beam {
+  animation: n-beam-rotate 12s linear infinite !important;
+}
+[data-motion='full'] .n-marquee__track {
+  animation: n-marquee 24s linear infinite !important;
+}
+/**
+ * `[data-motion='full']` 只接管 .n-* 的循环动画，不碰 Tailwind 的 animate-*
+ *
+ * 后者由类名自己决定（用户写 `animate-spin` 就是要它转），
+ * 群组选择器里再声明一遍会与 `animate-none` 打架，也会把 reduced 的覆盖复写回来。
+ */
+
+@keyframes n-fade-only {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 应用内「减少动效」开关：优先级高于系统偏好 */
+[data-motion='reduced'] .n-stagger,
+[data-motion='reduced'] .n-rise,
+[data-motion='reduced'] .n-page-enter,
+[data-motion='reduced'] .n-enter {
+  animation: n-fade-only 0.16s ease-out both;
+}
+[data-motion='reduced'] .n-skeleton::after,
+[data-motion='reduced'] .n-beam,
+[data-motion='reduced'] .n-marquee__track {
+  animation: none !important;
+}
+/**
+ * Tailwind 的 `animate-ping / animate-spin / animate-pulse` 必须单独覆盖
+ *
+ * 它们是另一套类名，不在 .n-* 语义类里 —— 只关 .n-* 的话，
+ * 「实时」脉冲点、刷新转圈、打字光标在减少动效档下仍然在跑。
+ * 实测（scripts/_reduced-motion-audit.mjs）：切到 reduced 后性能监控页仍有
+ * 7 个动画在跑，其中 2 个无限循环，全部来自 `animate-ping`。
+ *
+ * 这三个只保留「静态可见性」：脉冲点变成实心点、转圈变成静止图标、
+ * 光标变成实心块 —— 信息不丢，但不再消耗合成/主线程。
+ */
+[data-motion='reduced'] .animate-ping,
+[data-motion='reduced'] .animate-spin,
+[data-motion='reduced'] .animate-pulse,
+[data-motion='reduced'] .animate-bounce {
+  animation: none !important;
+}
+[data-motion='reduced'] .animate-ping {
+  /* ping 是「扩散一圈再消失」：关掉后必须把内层留在不透明状态，否则会停在第 0 帧 */
+  opacity: 0.45;
+}
+[data-motion='reduced'] *,
+[data-motion='reduced'] *::before,
+[data-motion='reduced'] *::after {
+  transition-duration: 120ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ------------------------------------------------------------------ *
+ * 11. 主题切换的圆形扩散（View Transitions API）
+ * 旧层保持不动，新层以圆形遮罩从点击位置扩散
+ * ------------------------------------------------------------------ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* ================================================================== *
+ * 无限画布（InfiniteCanvas）
+ *
+ * 约定：
+ * - 只在这一段里写画布相关类，宿主页面不再自定义；
+ * - 全部基于设计令牌（--n-*），10 组强调色 / 5 档圆角 / 深浅色自动跟随；
+ * - 高频路径（拖动、缩放）只改 CSS 变量，不触发 React 渲染。
+ * ================================================================== */
+
+@layer components {
+  /* ---------------- 根容器 ---------------- */
+  .n-canvas {
+    --c-dx: 0px;
+    --c-dy: 0px;
+    background-color: var(--n-bg-subtle);
+    outline: none;
+    overscroll-behavior: none;
+  }
+
+  .n-canvas:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--n-primary-ring);
+  }
+
+  .n-canvas[data-space-panning] {
+    cursor: grab;
+  }
+
+  .n-canvas[data-space-panning]:active {
+    cursor: grabbing;
+  }
+
+  /* 世界层：唯一一次 transform，节点与连线共用 */
+  .n-canvas-world {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+    contain: layout style;
+  }
+
+  /* ---------------- 背景点阵 ----------------
+   * 两层 radial-gradient（细点 + 粗点），随相机写 CSS 变量。
+   * 用径向渐变画点而不是 DOM：10 万个点也只是 2 张贴图。
+   * ------------------------------------------- */
+  .n-canvas-bg {
+    --c-bg-size: 24px;
+    --c-bg-major: 120px;
+    --c-bg-x: 0px;
+    --c-bg-y: 0px;
+    --c-bg-major-x: 0px;
+    --c-bg-major-y: 0px;
+    opacity: 0.9;
+  }
+
+  .n-canvas-bg--dots {
+    background-image:
+      radial-gradient(
+        circle at center,
+        color-mix(in oklab, var(--n-fg-4) 55%, transparent) 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+        circle at center,
+        color-mix(in oklab, var(--n-fg-3) 40%, transparent) 1.4px,
+        transparent 1.4px
+      );
+    background-size:
+      var(--c-bg-size) var(--c-bg-size),
+      var(--c-bg-major) var(--c-bg-major);
+    background-position:
+      var(--c-bg-x) var(--c-bg-y),
+      var(--c-bg-major-x) var(--c-bg-major-y);
+  }
+
+  .n-canvas-bg--grid {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--n-border) 70%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--n-border) 70%, transparent) 1px,
+        transparent 1px
+      );
+    background-size:
+      var(--c-bg-size) var(--c-bg-size),
+      var(--c-bg-size) var(--c-bg-size);
+    background-position:
+      var(--c-bg-x) var(--c-bg-y),
+      var(--c-bg-x) var(--c-bg-y);
+  }
+
+  /* 缩放分档：拉远时降不透明度，避免密集点阵变成噪点 */
+  .n-canvas-bg[data-zoom-band='far'] {
+    opacity: 0.45;
+  }
+
+  /* ---------------- 节点 ---------------- */
+  .n-canvas-node {
+    position: absolute;
+    transform: translate3d(var(--c-dx), var(--c-dy), 0);
+    transform-origin: 0 0;
+    contain: layout paint style;
+  }
+
+  /* 拖动中提升合成层，避免整块重绘 */
+  .n-canvas-node.is-dragging {
+    will-change: transform;
+    z-index: 999 !important;
+    cursor: grabbing;
+  }
+
+  .n-canvas-node.is-selected {
+    z-index: 998;
+  }
+
+  /* 节点外框 */
+  .n-canvas-frame {
+    transition:
+      box-shadow 0.18s var(--ease-out-expo),
+      border-color 0.18s var(--ease-out-expo);
+  }
+
+  .n-canvas-frame--selected {
+    border-color: color-mix(in oklab, var(--n-primary) 65%, var(--n-border));
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--n-primary) 45%, transparent),
+      0 8px 24px -12px color-mix(in oklab, var(--n-primary) 55%, transparent);
+  }
+
+  .n-canvas-frame--locked {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 6px,
+      color-mix(in oklab, var(--n-fg-4) 5%, transparent) 6px 7px
+    );
+  }
+
+  /* AI 处理中：流光边框（不新增依赖，纯 CSS 动画） */
+  .n-canvas-frame--busy {
+    border-color: color-mix(in oklab, var(--n-primary) 60%, var(--n-border));
+  }
+
+  .n-canvas-frame--busy::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--beam-angle, 0deg),
+      transparent 0 30%,
+      var(--n-primary) 45%,
+      color-mix(in oklab, var(--n-primary) 40%, transparent) 60%,
+      transparent 75% 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: n-beam-rotate 2.4s linear infinite;
+    pointer-events: none;
+  }
+
+  .n-canvas-frame__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    border-radius: var(--n-radius-sm);
+    background-color: var(--n-surface-2);
+    padding: 0.0625rem 0.3rem;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--n-fg-4);
+    text-transform: uppercase;
+  }
+
+  /* 选中徽标点：右上角一个小圆点，配合 ring 更明确 */
+  .n-canvas-frame__badge-dot {
+    display: none;
+  }
+
+  .n-canvas-frame--selected .n-canvas-frame__badge-dot {
+    display: block;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: var(--n-primary);
+    box-shadow: 0 0 0 2px var(--n-surface);
+  }
+
+  .n-canvas-content {
+    contain: layout paint;
+  }
+
+  /* ---------------- AI 药丸按钮 ---------------- */
+  .n-canvas-ai-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1875rem;
+    height: 1.125rem;
+    padding: 0 0.375rem;
+    border-radius: 9999px;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    color: var(--n-primary-fg);
+    background-image: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--n-primary) 92%, white),
+      color-mix(in oklab, var(--n-primary) 62%, #7c3aed)
+    );
+    box-shadow: 0 1px 2px color-mix(in oklab, var(--n-primary) 40%, transparent);
+    transition:
+      transform 0.16s var(--ease-out-expo),
+      box-shadow 0.16s var(--ease-out-expo),
+      filter 0.16s;
+  }
+
+  .n-canvas-ai-pill:hover {
+    transform: translateY(-0.5px);
+    filter: brightness(1.06);
+    box-shadow: 0 3px 10px -2px color-mix(in oklab, var(--n-primary) 55%, transparent);
+  }
+
+  .n-canvas-ai-pill:active {
+    transform: translateY(0);
+  }
+
+  .n-canvas-ai-pill__text {
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------------- 缩放手柄 ---------------- */
+  .n-canvas-handle {
+    position: absolute;
+    border-radius: 2px;
+    background-color: var(--n-surface);
+    border: 1.5px solid var(--n-primary);
+    opacity: 0;
+    transition: opacity 0.14s var(--ease-out-expo);
+    z-index: 3;
+    /* 命中区比视觉大，触屏也好点 */
+    padding: 4px;
+  }
+
+  .n-canvas-node.is-selected .n-canvas-handle,
+  .n-canvas-node:hover .n-canvas-handle {
+    opacity: 1;
+  }
+
+  .n-canvas-handle--nw {
+    top: -5px;
+    left: -5px;
+    cursor: nwse-resize;
+  }
+  .n-canvas-handle--ne {
+    top: -5px;
+    right: -5px;
+    cursor: nesw-resize;
+  }
+  .n-canvas-handle--sw {
+    bottom: -5px;
+    left: -5px;
+    cursor: nesw-resize;
+  }
+  .n-canvas-handle--se {
+    bottom: -5px;
+    right: -5px;
+    cursor: nwse-resize;
+  }
+
+  /* ---------------- 端口 ---------------- */
+  .n-canvas-port {
+    position: absolute;
+    border-radius: 9999px;
+    background-color: var(--n-surface);
+    border: 1.5px solid var(--n-line-strong, var(--n-border-strong));
+    opacity: 0;
+    transform: scale(0.7);
+    transition:
+      opacity 0.14s var(--ease-out-expo),
+      transform 0.14s var(--ease-out-expo),
+      background-color 0.14s;
+    z-index: 4;
+    cursor: crosshair;
+  }
+
+  .n-canvas-node:hover .n-canvas-port,
+  .n-canvas-node.is-selected .n-canvas-port {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .n-canvas-port:hover {
+    background-color: var(--n-primary);
+    border-color: var(--n-primary);
+    transform: scale(1.25);
+  }
+
+  .n-canvas-port--top {
+    top: -7px;
+    left: 50%;
+    translate: -50% 0;
+  }
+  .n-canvas-port--bottom {
+    bottom: -7px;
+    left: 50%;
+    translate: -50% 0;
+  }
+  .n-canvas-port--left {
+    left: -7px;
+    top: 50%;
+    translate: 0 -50%;
+  }
+  .n-canvas-port--right {
+    right: -7px;
+    top: 50%;
+    translate: 0 -50%;
+  }
+
+  /* ---------------- 连线 ---------------- */
+  .n-canvas-edge {
+    stroke: var(--n-border-strong);
+    stroke-linecap: round;
+    transition:
+      stroke 0.16s ease,
+      opacity 0.16s ease;
+  }
+
+  .n-canvas-edge--primary {
+    stroke: var(--n-primary);
+  }
+  .n-canvas-edge--success {
+    stroke: var(--n-success);
+  }
+  .n-canvas-edge--warning {
+    stroke: var(--n-warning);
+  }
+  .n-canvas-edge--danger {
+    stroke: var(--n-danger);
+  }
+
+  .n-canvas-edge--ai {
+    stroke: url(#n-canvas-ai-gradient);
+    stroke: var(--n-primary);
+    stroke-dasharray: 6 5;
+    animation: n-flow-dash 0.9s linear infinite;
+  }
+
+  .n-canvas-edge--dashed {
+    stroke-dasharray: 5 4;
+  }
+
+  .n-canvas-edge--preview {
+    stroke: color-mix(in oklab, var(--n-primary) 75%, transparent);
+    stroke-dasharray: 5 4;
+    stroke-width: 1.6;
+  }
+
+  .n-canvas-edge.is-hovered {
+    stroke-width: 2.4;
+  }
+
+  .n-canvas-edge-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: 9999px;
+    border: 1px solid var(--n-border);
+    background-color: var(--n-surface);
+    padding: 0.0625rem 0.4375rem;
+    font-size: 0.625rem;
+    line-height: 1.25;
+    color: var(--n-fg-3);
+    box-shadow: 0 1px 2px rgb(16 24 40 / 0.06);
+  }
+
+  /* ---------------- 框选 / 参考线 ---------------- */
+  .n-canvas-marquee {
+    position: absolute;
+    z-index: 30;
+    border-radius: 3px;
+    border: 1px solid color-mix(in oklab, var(--n-primary) 70%, transparent);
+    background-color: color-mix(in oklab, var(--n-primary) 10%, transparent);
+    pointer-events: none;
+  }
+
+  .n-canvas-guide {
+    position: absolute;
+    z-index: 25;
+    background-color: color-mix(in oklab, var(--n-primary) 85%, transparent);
+    pointer-events: none;
+    box-shadow: 0 0 0 0.5px color-mix(in oklab, var(--n-surface) 70%, transparent);
+  }
+
+  /* ---------------- 节点菜单 ---------------- */
+  .n-canvas-menu {
+    min-width: 8.5rem;
+    padding: 0.25rem;
+    border-radius: var(--n-radius);
+    border: 1px solid var(--n-border);
+    background-color: var(--n-surface);
+    box-shadow: var(--n-shadow-lg);
+    animation: n-fade-in 0.12s var(--ease-out-expo) both;
+  }
+
+  /* ---------------- AI 对话框 ---------------- */
+  .n-canvas-ai {
+    position: absolute;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    border-radius: var(--n-radius-lg);
+    border: 1px solid var(--n-border);
+    background-color: var(--n-surface);
+    box-shadow: var(--n-shadow-xl);
+    animation: n-ai-pop 0.18s var(--ease-out-expo) both;
+  }
+
+  .n-canvas-ai__body {
+    scrollbar-width: thin;
+  }
+
+  .n-canvas-ai__leader {
+    position: absolute;
+    width: 0.875rem;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      color-mix(in oklab, var(--n-primary) 70%, transparent),
+      transparent
+    );
+  }
+
+  .n-canvas-ai__leader.is-right {
+    left: -0.875rem;
+  }
+
+  .n-canvas-ai__leader.is-left {
+    right: -0.875rem;
+    background: linear-gradient(
+      to left,
+      color-mix(in oklab, var(--n-primary) 70%, transparent),
+      transparent
+    );
+  }
+
+  .n-canvas-caret {
+    display: inline-block;
+    width: 2px;
+    height: 0.85em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background-color: var(--n-primary);
+    animation: n-caret-blink 1s steps(1) infinite;
+  }
+
+  .n-canvas-progress-bar {
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--n-primary), transparent);
+    animation: n-progress-slide 1.1s var(--ease-out-expo) infinite;
+  }
+
+  .n-canvas-step-spin {
+    animation: n-spin 1s linear infinite;
+  }
+
+  .n-canvas-pulse {
+    animation: n-status-pulse 1.6s ease-in-out infinite;
+  }
+
+  .n-canvas-badge-soft {
+    border-radius: 9999px;
+    background-color: var(--n-surface-2);
+    padding: 0 0.25rem;
+    font-size: 0.5625rem;
+    color: var(--n-fg-4);
+  }
+
+  .n-canvas-tone-chip {
+    border-radius: var(--n-radius-sm);
+    padding: 0 0.25rem;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .n-canvas-tone-chip--primary {
+    background-color: var(--n-primary-weak);
+    color: var(--n-primary);
+  }
+  .n-canvas-tone-chip--success {
+    background-color: var(--n-success-weak);
+    color: var(--n-success);
+  }
+  .n-canvas-tone-chip--warning {
+    background-color: var(--n-warning-weak);
+    color: var(--n-warning);
+  }
+  .n-canvas-tone-chip--danger {
+    background-color: var(--n-danger-weak);
+    color: var(--n-danger);
+  }
+  .n-canvas-tone-chip--info {
+    background-color: var(--n-info-weak);
+    color: var(--n-info);
+  }
+  .n-canvas-tone-chip--neutral {
+    background-color: var(--n-surface-2);
+    color: var(--n-fg-3);
+  }
+
+  .n-canvas-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    border-radius: var(--n-radius-sm);
+    border: 1px solid var(--n-border);
+    font-size: 0.6875rem;
+    color: var(--n-fg-2);
+    background-color: var(--n-surface);
+    transition:
+      background-color 0.16s,
+      border-color 0.16s,
+      color 0.16s;
+  }
+
+  .n-canvas-btn:hover {
+    border-color: color-mix(in oklab, var(--n-primary) 45%, var(--n-border));
+    color: var(--n-fg);
+    background-color: var(--n-surface-2);
+  }
+
+  .n-canvas-btn--primary {
+    border-color: transparent;
+    background-color: var(--n-primary);
+    color: var(--n-primary-fg);
+  }
+
+  .n-canvas-btn--primary:hover {
+    background-color: var(--n-primary-hover);
+    color: var(--n-primary-fg);
+  }
+
+  .n-canvas-icon-btn {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--n-radius-sm);
+    color: var(--n-fg-3);
+    transition:
+      background-color 0.16s,
+      color 0.16s;
+  }
+
+  .n-canvas-icon-btn:hover {
+    background-color: var(--n-surface-2);
+    color: var(--n-fg);
+  }
+
+  .n-canvas-icon-btn--primary {
+    background-color: var(--n-primary-weak);
+    color: var(--n-primary);
+  }
+
+  .n-canvas-icon-btn--primary:disabled {
+    opacity: 0.45;
+    background-color: var(--n-surface-2);
+    color: var(--n-fg-4);
+  }
+
+  .n-canvas-icon-btn--danger:hover {
+    background-color: var(--n-danger-weak);
+    color: var(--n-danger);
+  }
+
+  .n-canvas-inline-edit {
+    field-sizing: content;
+    caret-color: var(--n-primary);
+  }
+
+  /* ---------------- 节点内容：图片 / 视频 ---------------- */
+  .n-canvas-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--n-surface-2);
+  }
+
+  .n-canvas-media img,
+  .n-canvas-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .n-canvas-media__play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.42), transparent 55%);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s var(--ease-out-expo);
+  }
+
+  .n-canvas-node:hover .n-canvas-media__play {
+    opacity: 1;
+  }
+}
+
+/* ---------------- 关键帧 ---------------- */
+@keyframes n-flow-dash {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+@keyframes n-caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes n-progress-slide {
+  0% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(260%);
+  }
+}
+
+@keyframes n-ai-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes n-status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* 减少动效：画布里的持续动画一律停掉，静态仍然可用 */
+[data-motion='reduced'] .n-canvas-edge--ai,
+[data-motion='reduced'] .n-canvas-frame--busy::after,
+[data-motion='reduced'] .n-canvas-caret,
+[data-motion='reduced'] .n-canvas-progress-bar,
+[data-motion='reduced'] .n-canvas-pulse,
+[data-motion='reduced'] .n-canvas-step-spin {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .n-canvas-edge--ai,
+  .n-canvas-frame--busy::after,
+  .n-canvas-caret,
+  .n-canvas-progress-bar,
+  .n-canvas-pulse,
+  .n-canvas-step-spin {
+    animation: none !important;
+  }
+}
+
+/* ---------------- 画布右键菜单 ---------------- */
+.n-canvas-menu[data-canvas-context-menu] {
+  padding: 0.3125rem;
+  border-radius: var(--n-radius-lg);
+  box-shadow: var(--n-shadow-xl);
+}
+
+/* ---------------- LOD 聚合块 ---------------- */
+.n-canvas-lod {
+  position: absolute;
+  transform-origin: 0 0;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  border: 1px solid color-mix(in oklab, var(--n-primary) 30%, transparent);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--n-primary) 14%, transparent) 0 4px,
+      transparent 4px 8px
+    ),
+    color-mix(in oklab, var(--n-surface-2) 70%, transparent);
+  box-shadow: 0 1px 3px rgb(16 24 40 / 0.08);
+  contain: strict;
+}
+
+.n-canvas-lod > span {
+  position: absolute;
+  right: 2px;
+  bottom: 1px;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  color: var(--n-primary);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* 画布菜单的进场动画：n-fade-in 带 -50% 位移（是为下拉菜单设计的），
+ * 用在右键菜单上会把整块往上顶掉一半高度，这里单独一个纯淡入。 */
+@keyframes n-canvas-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.n-canvas-menu[data-canvas-context-menu],
+.n-canvas-menu[data-canvas-context-menu] [role='menu'] {
+  animation: n-canvas-menu-in 0.13s var(--ease-out-expo) both;
+}
+
+[data-motion='reduced'] .n-canvas-menu[data-canvas-context-menu] {
+  animation: n-fade-only 0.1s both;
+}
+
+/* ---------------- 卡片顶部菜单 ---------------- */
+/* ---------------- 卡片顶部菜单 ----------------
+ * 只占右侧一段，并带从左到右的渐隐遮罩：
+ * 早先写成 inset:0 全宽覆盖，结果把标题整个盖住（分组框尤其明显，
+ * 只剩「解组」两个字，看不出这个框是什么）。
+ * ------------------------------------------- */
+.n-canvas-topmenu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.125rem;
+  padding: 0 0.25rem 0 1.5rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--n-surface) 92%, transparent) 28%,
+    color-mix(in oklab, var(--n-surface) 98%, transparent)
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.14s var(--ease-out-expo);
+  z-index: 6;
+}
+
+.n-canvas-node:hover .n-canvas-topmenu,
+.n-canvas-node.is-selected .n-canvas-topmenu {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 拖动中不显示：拖动时鼠标掠过卡片会频繁弹出，反而干扰 */
+.n-canvas-node.is-dragging .n-canvas-topmenu {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.n-canvas-topmenu__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1875rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
+  padding: 0 0.25rem;
+  border-radius: 4px;
+  color: var(--n-fg-3);
+  transition:
+    background-color 0.14s,
+    color 0.14s;
+}
+
+.n-canvas-topmenu__btn:hover {
+  background-color: var(--n-surface-2);
+  color: var(--n-fg);
+}
+
+.n-canvas-topmenu__btn.is-active {
+  background-color: var(--n-primary-weak);
+  color: var(--n-primary);
+}
+
+.n-canvas-topmenu__btn.is-danger:hover {
+  background-color: var(--n-danger-weak);
+  color: var(--n-danger);
+}
+
+.n-canvas-topmenu__btn.is-wide {
+  padding: 0 0.375rem;
+  font-size: 0.625rem;
+}
+
+/* ---------------- 卡片底部 AI 输入区 ---------------- */
+.n-canvas-ai-dock {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-height: 74%;
+  padding: 0.375rem;
+  border-top: 1px solid var(--n-border);
+  border-radius: 0 0 var(--n-radius-lg) var(--n-radius-lg);
+  background: color-mix(in oklab, var(--n-surface) 97%, transparent);
+  box-shadow: 0 -8px 20px -14px rgb(16 24 40 / 0.35);
+  backdrop-filter: blur(3px);
+  animation: n-canvas-dock-in 0.16s var(--ease-out-expo) both;
+}
+
+.n-canvas-ai-dock__head {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.n-canvas-ai-dock__dot {
+  display: grid;
+  place-items: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 3px;
+  background-color: var(--n-primary-weak);
+  color: var(--n-primary);
+}
+
+.n-canvas-ai-dock__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.25rem 0.375rem;
+  border-radius: var(--n-radius-sm);
+  background-color: var(--n-surface-2);
+}
+
+.n-canvas-ai-dock__actions,
+.n-canvas-ai-dock__chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.n-canvas-ai-dock__input {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+@keyframes n-canvas-dock-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-motion='reduced'] .n-canvas-ai-dock {
+  animation: none;
+}
+
+/* ---------------- 编组：分组框与成员高亮 ---------------- */
+.n-canvas-group {
+  border-radius: var(--n-radius-lg);
+  border: 1px dashed var(--n-border-strong);
+  background-color: color-mix(in oklab, var(--n-primary) 4%, transparent);
+}
+
+.n-canvas-group.is-active {
+  border-color: color-mix(in oklab, var(--n-primary) 60%, var(--n-border-strong));
+  background-color: color-mix(in oklab, var(--n-primary) 7%, transparent);
+}
+
+/* 画布 AI 输入区的滚动条：卡片小，细滚动条不抢视线 */
+.n-canvas-no-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--n-fg-4) 40%, transparent) transparent;
+}
+
+.n-canvas-no-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.n-canvas-no-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: color-mix(in oklab, var(--n-fg-4) 40%, transparent);
+}
+
+/* ================================================================== *
+ * 动效卡片（MotionCard）
+ *
+ * 五种效果共用一套「指针只写 CSS 变量」的机制：
+ *   --mc-x / --mc-y   指针在卡片内的百分比坐标（光斑）
+ *   --mc-rx / --mc-ry tilt 的旋转角
+ *   --mc-on           指针是否在卡片上（0/1）
+ *
+ * 约束（与组件注释一致）：
+ * - 手势期间零 setState：全部通过变量驱动，静止时不会因为状态变化重绘
+ * - 除 aurora 外没有常驻动画；aurora 幅度 < 6%、周期 14s/18s
+ * - 减少动效全关：prefers-reduced-motion 与 [data-motion='reduced'] 都覆盖
+ * ================================================================== */
+.n-motion-card {
+  --mc-x: 50%;
+  --mc-y: 50%;
+  --mc-rx: 0deg;
+  --mc-ry: 0deg;
+  --mc-on: 0;
+  --mc-accent: var(--n-chart-1);
+  transition:
+    box-shadow 0.32s var(--ease-out-expo),
+    border-color 0.32s var(--ease-out-expo),
+    transform 0.32s var(--ease-out-expo);
+}
+
+/* lift：最保守的抬升，阴影加深但不改变布局 */
+.n-motion-card[data-effect='lift']:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--n-shadow-md);
+  border-color: color-mix(in oklab, var(--mc-accent) 34%, var(--n-border));
+}
+
+/* spotlight：径向光斑跟随指针，透明度由 --mc-on 控制 */
+.n-motion-card__spot {
+  opacity: var(--mc-on, 0);
+  transition: opacity 0.34s ease;
+  background: radial-gradient(
+    16rem circle at var(--mc-x) var(--mc-y),
+    color-mix(in oklab, var(--mc-accent) 16%, transparent),
+    transparent 68%
+  );
+}
+
+.n-motion-card[data-effect='spotlight']:hover {
+  border-color: color-mix(in oklab, var(--mc-accent) 32%, var(--n-border));
+  box-shadow: var(--n-shadow-sm);
+}
+
+/* tilt：指针驱动的 3D 倾斜，必须给父级 perspective 才有立体感 */
+.n-motion-card[data-effect='tilt'] {
+  transform: perspective(60rem) rotateX(var(--mc-rx)) rotateY(var(--mc-ry));
+  transform-style: preserve-3d;
+}
+
+.n-motion-card[data-effect='tilt']:hover {
+  box-shadow: var(--n-shadow-lg);
+  border-color: color-mix(in oklab, var(--mc-accent) 34%, var(--n-border));
+}
+
+/* sweep：一条斜向高光，7.2s 掠过一次；悬停时换色并加速到 2.6s */
+.n-motion-card__sweep {
+  background: linear-gradient(
+    104deg,
+    transparent 38%,
+    color-mix(in oklab, var(--mc-accent) 22%, transparent) 48%,
+    rgb(255 255 255 / 0.5) 51%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  background-position: 180% 0;
+  animation: n-motion-sweep 7.2s var(--ease-out-expo) 1.2s infinite;
+}
+
+.n-motion-card[data-effect='sweep']:hover .n-motion-card__sweep {
+  animation-duration: 2.6s;
+  animation-delay: 0s;
+}
+
+/* aurora：两层同色调光团反向缓慢漂移，幅度小、周期长 */
+.n-motion-card__aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(1.75rem);
+  pointer-events: none;
+  opacity: 0.55;
+  /*
+   * 保留 will-change：这两层是**常驻循环动画**（14s / 18s 无限交替），
+   * 没有它每次动画重启都会重新光栅化 1.75rem 的模糊层。
+   * 与 .n-page-enter 的差别就在「动画是不是一直在跑」——
+   * 一直在跑的值得付合成层，跑一次的不值得。
+   */
+  will-change: transform;
+}
+
+.n-motion-card__aurora--a {
+  top: -30%;
+  left: -12%;
+  width: 62%;
+  height: 130%;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--mc-accent) 38%, transparent),
+    transparent 70%
+  );
+  animation: n-motion-aurora 14s ease-in-out infinite alternate;
+}
+
+.n-motion-card__aurora--b {
+  right: -16%;
+  bottom: -34%;
+  width: 70%;
+  height: 120%;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--mc-accent) 26%, var(--n-chart-6)),
+    transparent 72%
+  );
+  opacity: 0.34;
+  animation: n-motion-aurora 18s ease-in-out -6s infinite alternate-reverse;
+}
+
+@keyframes n-motion-sweep {
+  0% {
+    background-position: 180% 0;
+  }
+  55%,
+  100% {
+    background-position: -80% 0;
+  }
+}
+
+@keyframes n-motion-aurora {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(4%, 3%, 0) scale(1.06);
+  }
+}
+
+/* ---------------- 减少动效：全部关掉，卡片仍可读可聚焦 ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .n-motion-card {
+    transition: none;
+  }
+  .n-motion-card[data-effect='lift']:hover,
+  .n-motion-card[data-effect='tilt'] {
+    transform: none;
+  }
+  .n-motion-card__sweep,
+  .n-motion-card__aurora {
+    animation: none;
+  }
+  .n-motion-card__sweep {
+    opacity: 0;
+  }
+  .n-motion-card__aurora {
+    opacity: 0.3;
+  }
+}
+
+[data-motion='reduced'] .n-motion-card {
+  transition: none;
+}
+[data-motion='reduced'] .n-motion-card[data-effect='lift']:hover,
+[data-motion='reduced'] .n-motion-card[data-effect='tilt'] {
+  transform: none;
+}
+[data-motion='reduced'] .n-motion-card__sweep,
+[data-motion='reduced'] .n-motion-card__aurora {
+  animation: none;
+}
+[data-motion='reduced'] .n-motion-card__sweep {
+  opacity: 0;
+}
+
+[data-motion='full'] .n-motion-card__sweep {
+  animation: n-motion-sweep 7.2s var(--ease-out-expo) 1.2s infinite;
+}
+[data-motion='full'] .n-motion-card__aurora--a {
+  animation: n-motion-aurora 14s ease-in-out infinite alternate;
+}
+[data-motion='full'] .n-motion-card__aurora--b {
+  animation: n-motion-aurora 18s ease-in-out -6s infinite alternate-reverse;
+}

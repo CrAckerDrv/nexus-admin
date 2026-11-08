@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 使用问题 / 讨论
+    url: https://github.com/CrAckerDrv/nexus-admin/discussions
+    about: 如何使用、如何接入自己的后端等问题，请在 Discussions 中提问
+  - name: 文档
+    url: https://github.com/CrAckerDrv/nexus-admin#-文档
+    about: 先查阅文档，可能已有答案

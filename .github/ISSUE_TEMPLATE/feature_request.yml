@@ -1,0 +1,58 @@
+name: Feature Request
+description: 提议一个新能力或改进
+title: '[Feature] '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        功能请求请聚焦**要解决的问题**，而不是具体的实现方案。
+        好的请求通常包含：使用场景 → 现有方案的不足 → 期望的效果。
+
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景
+      description: 你在做什么业务时遇到了什么障碍？
+      placeholder: 例如：我们有一个 3 万行的审批列表，需要支持按部门展开/收起
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望方案
+      placeholder: |
+        希望 VirtualTable 支持分组行（group header），
+        展开时动态插入子行并保持虚拟滚动的正确偏移。
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 已尝试的替代方案
+      description: 你目前是怎么解决的？为什么不满意？
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 影响范围
+      multiple: true
+      options:
+        - 组件库 (@nexus/ui)
+        - 应用模块 (apps/admin)
+        - 文档 (apps/docs)
+        - 构建 / CI
+        - 其他
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: 参与意愿
+      options:
+        - label: 我愿意提交 PR 实现这个功能
+        - label: 我可以提供测试用例
+        - label: 我只是提出建议

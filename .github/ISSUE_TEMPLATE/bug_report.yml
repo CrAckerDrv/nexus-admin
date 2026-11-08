@@ -1,0 +1,80 @@
+name: Bug Report
+description: 报告一个缺陷，帮助我们改进
+title: '[Bug] '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量提供完整信息，能大幅缩短修复时间。
+        提交前请先搜索是否已有相同 Issue。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 清楚简洁地描述这个 Bug
+      placeholder: 例如：在用户管理页切换到第 2 页后，筛选条件会被重置
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开 /business/users
+        2. 选择状态筛选为「正常」
+        3. 点击分页第 2 页
+        4. 观察筛选条件被清空
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      placeholder: 翻页时应保留当前筛选条件
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 可从 package.json 或页面底部查看
+      placeholder: v0.1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: 浏览器
+      options:
+        - Chrome
+        - Edge
+        - Safari
+        - Firefox
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 控制台日志 / 截图
+      description: 粘贴相关报错，或拖拽截图到此处
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 确认
+      options:
+        - label: 我已在最新 main 分支上复现该问题
+          required: true
+        - label: 我已搜索过现有 Issue
+          required: true

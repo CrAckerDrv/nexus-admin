@@ -1,0 +1,22 @@
+{
+  "name": "@nexus/ai-sdk",
+  "version": "0.1.0",
+  "description": "Nexus AI 助手 SDK：流式传输、工具注册与零代码页面规格",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  }
+}

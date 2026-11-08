@@ -1,0 +1,418 @@
+@import 'tailwindcss';
+@import '../../../../packages/ui/src/styles/tokens.css';
+
+/* 扫描组件库源码，确保 packages/ui 中的类名被收集 */
+@source '../../../../packages/ui/src';
+@source '../';
+
+@layer base {
+  #root {
+    min-height: 100%;
+  }
+}
+
+/* ================================================================== *
+ * 登录页 · 左侧品牌区视觉层
+ *
+ * 约束：不引依赖、不引动画库、不牺牲首屏。
+ * 主体是 Canvas 上的「流动方块」（见 components/login-grid.tsx），
+ * 这里只保留它压不住的氛围层，全部只动 `transform` / `opacity` / CSS 变量。
+ *
+ * 分层（由后到前）：
+ *   1. 极光     三团大模糊渐变缓慢漂移，制造纵深
+ *   2. 流光标   行波 + 指针聚光 + 点击涟漪（Canvas，自走时钟）
+ *   3. 氛围     扫描线 + 暗角 + 颗粒
+ *   4. 叙事     模块流水线、标题扫光、卡片聚光
+ *
+ * 动效开关：
+ * - 所有「持续播放」的动画统一受 `--lg-play` 控制，减少动效时置为 paused；
+ * - 入场动画（feature 卡片）单独关闭，避免元素停在第 0 帧（opacity:0）而消失；
+ * - `[data-motion='full']` 的优先级高于系统媒体查询，与 tokens.css 的约定保持一致。
+ * - Canvas 自己读 `data-motion` / `prefers-reduced-motion`，见 login-grid.tsx。
+ * ================================================================== */
+
+@keyframes n-login-drift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 4%, 0) scale(1.09);
+  }
+  100% {
+    transform: translate3d(-2%, 2%, 0) scale(1.02);
+  }
+}
+
+@keyframes n-login-scanline {
+  0% {
+    transform: translate3d(0, -6vh, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(0, 106vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes n-login-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes n-login-ping {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.8;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* 品牌标识的柔和呼吸（亮度 + 缩放，幅度小到不抢视线） */
+@keyframes n-login-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+/* 标题扫光：一束高光自右向左掠过字形 */
+@keyframes n-login-sheen {
+  0% {
+    background-position: 168% 0;
+  }
+  55%,
+  100% {
+    background-position: -68% 0;
+  }
+}
+
+/* 模块流水线：一段光沿着连接线流向下一站 */
+@keyframes n-login-travel {
+  0% {
+    transform: translate3d(-120%, 0, 0);
+    opacity: 0;
+  }
+  15%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(330%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes n-login-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer components {
+  /* ---------------- 容器：视差变量 + 动画总开关 ---------------- */
+  .n-login-panel {
+    --lg-mx: 0.5;
+    --lg-my: 0.42;
+    --lg-on: 0;
+    --lg-play: running;
+    /* 视差层故意画得比容器大一圈，位移时才不会露边 */
+    contain: paint;
+  }
+
+  /* ---------------- 极光 ---------------- */
+  .n-login-aurora {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(5rem);
+    opacity: 0.5;
+    will-change: transform;
+    animation: n-login-drift 24s var(--ease-out-expo) infinite alternate;
+  }
+
+  .n-login-aurora--a {
+    top: -9rem;
+    left: -7rem;
+    width: 30rem;
+    height: 30rem;
+    background: radial-gradient(
+      circle at 40% 40%,
+      color-mix(in oklab, var(--n-primary) 62%, transparent),
+      transparent 68%
+    );
+  }
+
+  .n-login-aurora--b {
+    right: -9rem;
+    bottom: -11rem;
+    width: 28rem;
+    height: 28rem;
+    background: radial-gradient(
+      circle at 55% 45%,
+      color-mix(in oklab, var(--n-primary) 42%, #7c3aed),
+      transparent 70%
+    );
+    animation-duration: 30s;
+    animation-delay: -6s;
+  }
+
+  .n-login-aurora--c {
+    top: 26%;
+    right: 2%;
+    width: 22rem;
+    height: 22rem;
+    background: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in oklab, var(--n-primary) 34%, #06b6d4),
+      transparent 72%
+    );
+    opacity: 0.3;
+    animation-duration: 19s;
+    animation-delay: -11s;
+  }
+
+  .dark .n-login-aurora {
+    opacity: 0.6;
+  }
+  .dark .n-login-aurora--c {
+    opacity: 0.4;
+  }
+
+  /* ---------------- 纹理 ---------------- */
+  /* 颗粒：极淡噪点，抹掉大面积渐变的「塑料感」 */
+  .n-login-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+  }
+
+  /* 暗角：把注意力收回左半区，同时保住标题区的对比度 */
+  .n-login-vignette {
+    background: radial-gradient(
+      120% 95% at 26% 36%,
+      transparent 36%,
+      color-mix(in oklab, var(--n-bg) 74%, transparent) 100%
+    );
+  }
+
+  /* 内容压底：正文那一列盖一层很淡的表面色，
+   * 让方块在文字底下「退半步」—— 网格仍然可见，但不会和字形抢注意力。
+   * 只压文字所在的左中区域，右下的交互区保持全亮，聚光才看得出来。 */
+  .n-login-scrim {
+    background:
+      radial-gradient(
+        34% 32% at 26% 42%,
+        color-mix(in oklab, var(--n-bg) 62%, transparent) 0%,
+        color-mix(in oklab, var(--n-bg) 24%, transparent) 58%,
+        transparent 84%
+      ),
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--n-bg) 20%, transparent) 0%,
+        color-mix(in oklab, var(--n-bg) 7%, transparent) 46%,
+        transparent 72%
+      );
+  }
+
+  /* 扫描线：一条极淡的光带自上而下缓慢掠过 */
+  .n-login-scanline {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in oklab, var(--n-primary) 50%, transparent) 42%,
+      color-mix(in oklab, var(--n-primary) 72%, transparent) 55%,
+      transparent 100%
+    );
+    box-shadow: 0 0 1.5rem 0.375rem color-mix(in oklab, var(--n-primary) 16%, transparent);
+    opacity: 0;
+    animation: n-login-scanline 13s cubic-bezier(0.45, 0, 0.55, 1) 1.5s infinite;
+    will-change: transform, opacity;
+  }
+
+  /* ---------------- 指针光斑 ----------------
+   * Canvas 网格已经在指针附近亮了方块，这里只补一层极淡的径向氛围光，
+   * 让「光标所在处」整体微微抬亮，而不是只看见方块变色。
+   */
+  .n-login-spotlight {
+    position: absolute;
+    inset: 0;
+    opacity: var(--lg-on, 0);
+    transition: opacity 0.5s ease;
+    background: radial-gradient(
+      23rem circle at calc(var(--lg-mx) * 100%) calc(var(--lg-my) * 100%),
+      color-mix(in oklab, var(--n-primary) 8%, transparent),
+      transparent 70%
+    );
+  }
+
+  /* ---------------- 品牌标识 ---------------- */
+  .n-login-logo-halo {
+    position: absolute;
+    inset: -0.55rem;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle at center,
+      color-mix(in oklab, var(--n-primary) 55%, transparent),
+      transparent 70%
+    );
+    filter: blur(0.4rem);
+    opacity: 0.6;
+    animation: n-login-breathe 3.8s ease-in-out infinite;
+  }
+
+  /* 眉标上的呼吸点 */
+  .n-login-ping {
+    animation: n-login-ping 2.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* ---------------- 标题扫光 ----------------
+   * 真实文字保持实色（可选中、可被读屏朗读、高对比模式下正常），
+   * 扫光只复制一份字形轮廓，用 background-clip: text 裁进去。
+   */
+  .n-login-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .n-login-sheen::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      100deg,
+      transparent 34%,
+      color-mix(in oklab, var(--n-primary) 55%, #ffffff) 50%,
+      transparent 66%
+    );
+    background-size: 260% 100%;
+    background-repeat: no-repeat;
+    background-position: 168% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: n-login-sheen 8.5s cubic-bezier(0.4, 0, 0.2, 1) 1.8s infinite;
+  }
+
+  /* ---------------- 模块流水线 ---------------- */
+  .n-login-connector {
+    position: relative;
+    display: block;
+    width: 2rem;
+    height: 1px;
+    overflow: hidden;
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--n-border-strong) 80%, transparent),
+      var(--n-border)
+    );
+  }
+
+  .n-login-connector::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--n-primary) 90%, transparent),
+      transparent
+    );
+    transform: translate3d(-120%, 0, 0);
+    animation: n-login-travel 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: calc(var(--i, 0) * 320ms);
+  }
+
+  /* ---------------- 特性卡 ---------------- */
+  .n-login-feature {
+    animation: n-login-rise 0.42s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i, 0) * 65ms + 140ms);
+  }
+
+  /* 聚光层：位置来自行内写入的 --spot-x / --spot-y */
+  .n-login-feature-spot {
+    position: absolute;
+    inset: -1px;
+    opacity: 0;
+    transition: opacity 0.32s ease;
+    background: radial-gradient(
+      9rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in oklab, var(--n-primary) 16%, transparent),
+      transparent 70%
+    );
+  }
+
+  .n-login-feature:hover .n-login-feature-spot {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * 常驻动画总开关
+ *
+ * 放在 @layer components 之外，且用 `:where()` 把特异性压到最低：
+ * 每条动画自己的 `animation-play-state` 都还没被声明过，
+ * 这里只需后置生效即可；不写 !important，避免与组件层抢优先级。
+ * ------------------------------------------------------------------ */
+.n-login-aurora,
+.n-login-scanline,
+.n-login-logo-halo,
+.n-login-ping,
+.n-login-connector::after,
+.n-login-sheen::before {
+  animation-play-state: var(--lg-play, running);
+}
+
+/* ---------------- 减少动效 ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .n-login-panel {
+    --lg-play: paused;
+  }
+  .n-login-feature {
+    animation: none !important;
+  }
+}
+
+[data-motion='reduced'] .n-login-panel {
+  --lg-play: paused;
+}
+[data-motion='reduced'] .n-login-feature {
+  animation: none !important;
+}
+
+/* 应用内「始终开启动效」：压过系统偏好 */
+[data-motion='full'] .n-login-panel {
+  --lg-play: running;
+}
+[data-motion='full'] .n-login-feature {
+  animation: n-login-rise 0.42s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 65ms + 140ms);
+}

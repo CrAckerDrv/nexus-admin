@@ -1,0 +1,52 @@
+{
+  "name": "nexus-admin",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @nexus/admin dev",
+    "dev:docs": "pnpm --filter @nexus/docs dev",
+    "ai:gateway": "node scripts/ai-gateway.mjs",
+    "build": "pnpm --filter @nexus/ui run typecheck && pnpm --filter @nexus/ai-sdk run typecheck && pnpm --filter @nexus/admin build",
+    "build:docs": "pnpm --filter @nexus/docs build",
+    "preview": "pnpm --filter @nexus/admin preview",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "pnpm -r --if-present run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md,css,json,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,css,json,yml,yaml}\"",
+    "screenshot": "node scripts/screenshot.mjs",
+    "shot": "node scripts/shot.mjs",
+    "verify": "pnpm typecheck && pnpm lint && pnpm test",
+    "verify:assistant": "node scripts/verify-assistant.mjs",
+    "verify:assistant:llm": "node scripts/verify-assistant-llm.mjs",
+    "verify:assistant:api": "node scripts/verify-assistant-api.mjs",
+    "check:assistant:responsive": "node scripts/check-assistant-responsive.mjs",
+    "smoke": "node scripts/smoke-dev.mjs",
+    "verify:motion": "node scripts/verify-motion-number.mjs",
+    "perf:budget": "node scripts/perf-budget.mjs",
+    "perf:audit": "node scripts/perf-audit.mjs",
+    "perf:stress": "node scripts/perf-stress.mjs",
+    "perf:routes": "node scripts/perf-route-switch.mjs",
+    "perf:attribution": "node scripts/perf-attribution.mjs",
+    "perf:compare": "node scripts/perf-mobile-compare.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.14.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.7",
+    "globals": "16.5.0",
+    "playwright-core": "^1.64.1",
+    "prettier": "3.9.10",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

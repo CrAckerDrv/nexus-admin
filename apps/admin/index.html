@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 图标：字形本身就是标志，SVG 版会跟随系统深浅色自动反转；
+         仅保留一个 SVG 图标入口，避免浏览器在深色页签里挑到固定的深色 PNG。
+         旧浏览器回落到 .ico，iOS 主屏用不透明的 apple-touch-icon。 -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2f3f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0d13" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="description"
+      content="Nexus Admin —— 高性能、模块化、零依赖组件库的通用管理后台模板。React 19 + Vite 8 + TypeScript + Tailwind v4 + TanStack。"
+    />
+    <title>Nexus Admin · 通用管理后台模板</title>
+    <script>
+      /**
+       * 首屏前应用主题，避免刷新时闪白/闪黑（FOUC）
+       *
+       * 这里同步了 ui-store 里的全部视觉维度（主题/强调色/圆角/密度/字体/侧栏/宽度/方向/动效），
+       * 任何一项缺失都会在 React 挂载后「跳一下」，所以宁可多写几行。
+       */
+      ;(function () {
+        try {
+          var raw = localStorage.getItem('nexus-ui-prefs')
+          // zustand persist 把状态放在 data 字段下
+          var prefs = raw ? JSON.parse(raw).data || JSON.parse(raw) : {}
+          var theme = prefs.theme || 'system'
+          var dark =
+            theme === 'dark' ||
+            (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          var root = document.documentElement
+          root.classList.toggle('dark', dark)
+          root.dataset.theme = dark ? 'dark' : 'light'
+          if (prefs.accent) root.dataset.accent = prefs.accent
+          if (prefs.radius) root.dataset.radius = prefs.radius
+          if (prefs.density) root.dataset.density = prefs.density
+          if (prefs.font) root.dataset.font = prefs.font
+          // 菜单布局：新字段优先；旧版存的是 sidebarVariant（attached/floating/panel），
+          // 迁移成对应的菜单布局，避免首帧按 vertical 摆好再被 React 改一次
+          var menuLayout =
+            prefs.menuLayout || (prefs.sidebarVariant === 'floating' ? 'floating' : 'vertical')
+          root.dataset.menuLayout = menuLayout
+          if (prefs.layout) root.dataset.layout = prefs.layout
+          if (prefs.contentWidth) root.dataset.content = prefs.contentWidth
+          if (prefs.direction) {
+            root.dataset.dir = prefs.direction
+            root.setAttribute('dir', prefs.direction)
+          }
+          if (prefs.motion && prefs.motion !== 'system') {
+            root.dataset.motion = prefs.motion === 'reduced' ? 'reduced' : 'full'
+          }
+          if (prefs.locale) root.lang = prefs.locale
+          /**
+           * 自定义调色盘：直接照抄 ui-store 缓存好的「派生变量成品」
+           *
+           * 派生逻辑（混色、对比度、自动黑白文字）在 TS 里，内联脚本算不出来；
+           * 所以运行期每次应用调色盘都会把明/暗两份成品写进 localStorage，
+           * 这里只负责按当前明暗取一份贴到 <html style> 上，首帧就是自定义配色，
+           * 不会出现「先皮肤色再跳自定义色」的一帧闪烁。
+           */
+          try {
+            var pal = JSON.parse(localStorage.getItem('nexus-palette-cache') || '{}')
+            var vars = (dark ? pal.dark : pal.light) || {}
+            for (var name in vars) {
+              if (Object.prototype.hasOwnProperty.call(vars, name)) {
+                root.style.setProperty(name, vars[name])
+              }
+            }
+          } catch (e2) {}
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

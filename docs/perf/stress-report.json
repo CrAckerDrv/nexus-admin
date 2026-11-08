@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-11-06T21:26:43.478Z",
+  "base": "http://127.0.0.1:4183",
+  "results": [
+    {
+      "name": "万行表格滚动",
+      "group": "table",
+      "frames": 40,
+      "longTaskCount": 0,
+      "longestMs": 0,
+      "totalTaskMs": 0,
+      "durationMs": 663,
+      "fps": 60,
+      "rows": 27,
+      "errors": 0
+    },
+    {
+      "name": "表格排序重排",
+      "group": "table",
+      "frames": 72,
+      "longTaskCount": 0,
+      "longestMs": 0,
+      "totalTaskMs": 0,
+      "durationMs": 1203,
+      "fps": 60,
+      "errors": 0
+    },
+    {
+      "name": "画布拖动 90 帧",
+      "group": "canvas",
+      "frames": 91,
+      "longTaskCount": 0,
+      "longestMs": 0,
+      "totalTaskMs": 0,
+      "durationMs": 1589,
+      "fps": 57,
+      "errors": 0
+    },
+    {
+      "name": "画布滚轮缩放",
+      "group": "canvas",
+      "frames": 101,
+      "longTaskCount": 0,
+      "longestMs": 0,
+      "totalTaskMs": 0,
+      "durationMs": 1679,
+      "fps": 60,
+      "errors": 0
+    }
+  ]
+}

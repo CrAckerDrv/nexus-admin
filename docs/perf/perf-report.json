@@ -1,0 +1,1482 @@
+{
+  "generatedAt": "2026-11-06T16:11:18.177Z",
+  "dist": "C:\\Users\\Administrator\\Desktop\\运维后台\\nexus-admin\\apps\\admin\\dist-demo",
+  "cache": "cold",
+  "assets": {
+    "totalRawKB": 3112.7,
+    "totalGzipKB": 1252,
+    "table": {
+      "accounts-CUA8HQrg.js": {
+        "rawKB": 0.9,
+        "gzipKB": 0.5
+      },
+      "ai-chat-page-XfNliUFr.js": {
+        "rawKB": 12.4,
+        "gzipKB": 4.9
+      },
+      "ai-popover-C1lfn4XI.js": {
+        "rawKB": 57.9,
+        "gzipKB": 19.5
+      },
+      "ai-sdk-page-BKwzpkHH.js": {
+        "rawKB": 29.5,
+        "gzipKB": 11.8
+      },
+      "alert-CgEko-sK.js": {
+        "rawKB": 3.1,
+        "gzipKB": 1
+      },
+      "ambient-pad-BWYzJD9n.mp3": {
+        "rawKB": 36,
+        "gzipKB": 26.7
+      },
+      "analytics-page-BhfffPxD.js": {
+        "rawKB": 14.7,
+        "gzipKB": 5.4
+      },
+      "app-settings-store-CtqwnNCc.js": {
+        "rawKB": 1.1,
+        "gzipKB": 0.5
+      },
+      "app-shell-PGLzDxn1.js": {
+        "rawKB": 73.5,
+        "gzipKB": 19.3
+      },
+      "arrow-down-right-0QjDFW_t.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "arrow-up-right-CSKGxL4C.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "audit-page-CDSQ2Nq3.js": {
+        "rawKB": 6.5,
+        "gzipKB": 2.5
+      },
+      "backend-page-ClTNCUll.js": {
+        "rawKB": 35.5,
+        "gzipKB": 13.7
+      },
+      "badge-KvgfysyL.js": {
+        "rawKB": 2.1,
+        "gzipKB": 0.8
+      },
+      "banner-B-ZaktdF.js": {
+        "rawKB": 5.8,
+        "gzipKB": 1.8
+      },
+      "banner-page-BPnqBQzN.js": {
+        "rawKB": 13,
+        "gzipKB": 5.3
+      },
+      "banners-B1bzxpMe.js": {
+        "rawKB": 0.5,
+        "gzipKB": 0.3
+      },
+      "bell-B20Y1giE.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.3
+      },
+      "brand-icons-DcJZUUVN.js": {
+        "rawKB": 1,
+        "gzipKB": 0.5
+      },
+      "calendar-days-CFmTsv7R.js": {
+        "rawKB": 0.5,
+        "gzipKB": 0.3
+      },
+      "card-Cdq12KA9.js": {
+        "rawKB": 1.5,
+        "gzipKB": 0.6
+      },
+      "chart-pie-hXdNRCFZ.js": {
+        "rawKB": 0.6,
+        "gzipKB": 0.3
+      },
+      "chart-report-DkFbAkGR.webp": {
+        "rawKB": 16.3,
+        "gzipKB": 16.3
+      },
+      "charts-CaTGkwS6.js": {
+        "rawKB": 740.2,
+        "gzipKB": 244.6
+      },
+      "charts-page-4dfOVOPQ.js": {
+        "rawKB": 8.3,
+        "gzipKB": 3.4
+      },
+      "check-Cp6KNHvI.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "chevron-right-DL49XQY4.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "circle-alert-C3iBIIRF.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "circle-check-DYAgvX4F.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "circle-dollar-sign-BD1tUree.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "circle-plus-C4dGWCmD.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "circle-x-CVfjT2Et.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "clip-aurora-Drujh7-_.mp4": {
+        "rawKB": 28.8,
+        "gzipKB": 27.4
+      },
+      "clock-BDlYpQHw.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "code-xml-CYcKOl7w.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "command-center-page-BUy0FA4o.js": {
+        "rawKB": 23.1,
+        "gzipKB": 6.9
+      },
+      "components-B8k90S4I.js": {
+        "rawKB": 5.7,
+        "gzipKB": 2.2
+      },
+      "content-page-CvpUm7dJ.js": {
+        "rawKB": 8.7,
+        "gzipKB": 3.4
+      },
+      "contract-page-BSRLpWJ0.js": {
+        "rawKB": 15.7,
+        "gzipKB": 6
+      },
+      "copy-f8x48nOu.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "createLucideIcon-Dz4mELdK.js": {
+        "rawKB": 3.1,
+        "gzipKB": 1.5
+      },
+      "database-B14eGGqF.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "dialog-9xKB5Zr3.js": {
+        "rawKB": 7.4,
+        "gzipKB": 2.2
+      },
+      "donut-nw_yIGlu.webp": {
+        "rawKB": 25.4,
+        "gzipKB": 25.5
+      },
+      "download-XOHYpCiS.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "drone-BboJA1hk.webp": {
+        "rawKB": 23.3,
+        "gzipKB": 23.3
+      },
+      "dropdown-Db4zJfNs.js": {
+        "rawKB": 3.1,
+        "gzipKB": 1.5
+      },
+      "echart-core-Ro6PdEuw.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "echart-map-DpeQOXya.js": {
+        "rawKB": 59.6,
+        "gzipKB": 42.2
+      },
+      "echart-RoPy5hEB.js": {
+        "rawKB": 3.6,
+        "gzipKB": 1.7
+      },
+      "ellipsis-BkHJK1F5.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "empty-box-vwevD_C1.webp": {
+        "rawKB": 24.4,
+        "gzipKB": 24.4
+      },
+      "empty-state-CTEDfQD9.js": {
+        "rawKB": 1.1,
+        "gzipKB": 0.6
+      },
+      "external-link-MFBuygJZ.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "feedback-page-B588xSBp.js": {
+        "rawKB": 9.9,
+        "gzipKB": 3.7
+      },
+      "file-archive-B3NpaokD.js": {
+        "rawKB": 13.1,
+        "gzipKB": 4
+      },
+      "file-code-corner-ieSHkW2S.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.3
+      },
+      "files-page-R__jAvcA.js": {
+        "rawKB": 13.5,
+        "gzipKB": 4.9
+      },
+      "forbidden-page-BOWI3e3W.js": {
+        "rawKB": 2.6,
+        "gzipKB": 1.1
+      },
+      "forms-page-Bf5jLcGK.js": {
+        "rawKB": 9.3,
+        "gzipKB": 4
+      },
+      "funnel-zQhHHFAM.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "gallery-page-BGD9jvsL.js": {
+        "rawKB": 166.9,
+        "gzipKB": 53.4
+      },
+      "gantt-page-Ch4dZaxn.js": {
+        "rawKB": 10.2,
+        "gzipKB": 3.8
+      },
+      "gauge-DQpYI3Fz.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "generated-page-route-BSzsSslM.js": {
+        "rawKB": 1.9,
+        "gzipKB": 0.8
+      },
+      "gift-BJmKKXLf.webp": {
+        "rawKB": 21.5,
+        "gzipKB": 21.6
+      },
+      "git-branch-_ifyyM_5.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "globe-nKOa27Os.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "index-CT2ey7Yb.css": {
+        "rawKB": 198.2,
+        "gzipKB": 31.2
+      },
+      "index-Df_EbQ8y.js": {
+        "rawKB": 212.9,
+        "gzipKB": 73.2
+      },
+      "infinite-canvas-page-C3wqrpQq.js": {
+        "rawKB": 54.3,
+        "gzipKB": 18.3
+      },
+      "input-DDrl22S1.js": {
+        "rawKB": 4.9,
+        "gzipKB": 1.9
+      },
+      "kanban-page-DiRtUxEX.js": {
+        "rawKB": 9.6,
+        "gzipKB": 3.9
+      },
+      "key-round-C6hjUb7m.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.3
+      },
+      "keyboard-C4w-7hk2.webp": {
+        "rawKB": 13.1,
+        "gzipKB": 13
+      },
+      "kpi-tile-Dc1oSBEp.js": {
+        "rawKB": 2.6,
+        "gzipKB": 1.2
+      },
+      "layout-grid-OyXMcOME.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.2
+      },
+      "loader-circle-yyc8-8EL.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "lock-DLTf_CYy.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "lock-shield-DkmUl8MQ.webp": {
+        "rawKB": 23.4,
+        "gzipKB": 23.4
+      },
+      "login-page-B3gYo9P9.js": {
+        "rawKB": 22.3,
+        "gzipKB": 7.5
+      },
+      "mail-CkfRDoED.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "map-pin-CW2hE5hI.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "maximize-2-BsrZ4Cn-.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "media-CnLRYYHb.js": {
+        "rawKB": 47.5,
+        "gzipKB": 22.8
+      },
+      "media-workbench-page-CHZ7-Qq0.js": {
+        "rawKB": 9,
+        "gzipKB": 3.5
+      },
+      "memory-stick-DhrepZ5x.js": {
+        "rawKB": 0.9,
+        "gzipKB": 0.4
+      },
+      "menu-layout-BV08p4KR.js": {
+        "rawKB": 6.5,
+        "gzipKB": 2.1
+      },
+      "minimize-2-BuxVV5G0.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "misc-D0O1RKMl.js": {
+        "rawKB": 6.9,
+        "gzipKB": 2.7
+      },
+      "mock-CJDrAlaX.js": {
+        "rawKB": 35.9,
+        "gzipKB": 14.3
+      },
+      "module-page-DqavTSIf.js": {
+        "rawKB": 14.4,
+        "gzipKB": 6
+      },
+      "motion-G8b7h5Uz.js": {
+        "rawKB": 2.1,
+        "gzipKB": 1
+      },
+      "orders-page-BNXWVAgL.js": {
+        "rawKB": 10.9,
+        "gzipKB": 4
+      },
+      "overview-page-1Ddqkndq.js": {
+        "rawKB": 11.8,
+        "gzipKB": 5.2
+      },
+      "overview-page-BCEBMuqE.js": {
+        "rawKB": 18.9,
+        "gzipKB": 6.6
+      },
+      "overview-page-DOxluVEr.js": {
+        "rawKB": 9.2,
+        "gzipKB": 4.3
+      },
+      "page-DM8ggRD_.js": {
+        "rawKB": 6.5,
+        "gzipKB": 2.2
+      },
+      "page-renderer-DvdaccBR.js": {
+        "rawKB": 9.6,
+        "gzipKB": 3.2
+      },
+      "palette-Cshv04eX.js": {
+        "rawKB": 0.5,
+        "gzipKB": 0.3
+      },
+      "panel-left-DjWR6Xc_.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "pencil-CjFw1YQc.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "performance-page-BugYzFiu.js": {
+        "rawKB": 51.7,
+        "gzipKB": 14.8
+      },
+      "plus-CBrd1qus.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "premium-BrUdorry.js": {
+        "rawKB": 8.2,
+        "gzipKB": 3.2
+      },
+      "premium-page-BVOr94yv.js": {
+        "rawKB": 11.6,
+        "gzipKB": 4.2
+      },
+      "profile-page-BC_11684.js": {
+        "rawKB": 7.4,
+        "gzipKB": 2.7
+      },
+      "progress-BTrtdNqP.js": {
+        "rawKB": 2.4,
+        "gzipKB": 1.1
+      },
+      "queries-CE4Yjn_T.js": {
+        "rawKB": 5,
+        "gzipKB": 1
+      },
+      "radar-CdD9wMnc.js": {
+        "rawKB": 0.5,
+        "gzipKB": 0.3
+      },
+      "radio-s1eg2e6P.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.3
+      },
+      "react-C1iE8mnY.js": {
+        "rawKB": 213.6,
+        "gzipKB": 65.8
+      },
+      "refresh-cw-sJ-IIHqG.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.2
+      },
+      "rocket-DeM-r-2C.webp": {
+        "rawKB": 19.6,
+        "gzipKB": 19.6
+      },
+      "roles-page-D9uzde1m.js": {
+        "rawKB": 11.4,
+        "gzipKB": 3.8
+      },
+      "rolldown-runtime-XKyaHtl9.js": {
+        "rawKB": 0.7,
+        "gzipKB": 0.4
+      },
+      "rotate-ccw-BeL8_jJH.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "route-qYav8OS3.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "router-DFGCcwVd.js": {
+        "rawKB": 107.5,
+        "gzipKB": 35.1
+      },
+      "sandwich-6wL4xC1M.webp": {
+        "rawKB": 22.7,
+        "gzipKB": 22.7
+      },
+      "save-C1B-LCzP.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.2
+      },
+      "screen-campaign-page-CoIl2eup.js": {
+        "rawKB": 15.8,
+        "gzipKB": 4.9
+      },
+      "screen-city-page-CR3klt4g.js": {
+        "rawKB": 18.6,
+        "gzipKB": 5.7
+      },
+      "screen-compute-page-BeVX7dVa.js": {
+        "rawKB": 16.6,
+        "gzipKB": 5.2
+      },
+      "screen-finance-page-B-szW1N5.js": {
+        "rawKB": 12.2,
+        "gzipKB": 3.8
+      },
+      "screen-gallery-page-Cltb-WHh.js": {
+        "rawKB": 11.8,
+        "gzipKB": 3.3
+      },
+      "screen-logistics-page-CggC4E9G.js": {
+        "rawKB": 15.1,
+        "gzipKB": 5.3
+      },
+      "screen-manufacturing-page-CfPsDQpg.js": {
+        "rawKB": 15.3,
+        "gzipKB": 5
+      },
+      "screen-ops-page-DrikOFBS.js": {
+        "rawKB": 12.5,
+        "gzipKB": 4.2
+      },
+      "screen-primitives-C7m9HsGO.js": {
+        "rawKB": 6.2,
+        "gzipKB": 2.4
+      },
+      "select-DmvG6nAf.js": {
+        "rawKB": 6,
+        "gzipKB": 2.5
+      },
+      "send-DNG9qxmn.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "server-error-DJvlsx_Z.webp": {
+        "rawKB": 18.8,
+        "gzipKB": 18.8
+      },
+      "server-error-page-U_KswMOh.js": {
+        "rawKB": 1.8,
+        "gzipKB": 0.9
+      },
+      "session-list-BxZ8jNX9.js": {
+        "rawKB": 27.6,
+        "gzipKB": 7.9
+      },
+      "settings-page-Blqz6hSS.js": {
+        "rawKB": 15.9,
+        "gzipKB": 6.1
+      },
+      "siren-iomVJ7AJ.js": {
+        "rawKB": 0.5,
+        "gzipKB": 0.3
+      },
+      "slider-Cmkc30ah.js": {
+        "rawKB": 3.2,
+        "gzipKB": 1.5
+      },
+      "square-CrI0gD52.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "star-CeUKjuin.js": {
+        "rawKB": 0.5,
+        "gzipKB": 0.3
+      },
+      "steps-Be65Te6P.js": {
+        "rawKB": 4.3,
+        "gzipKB": 1.5
+      },
+      "structure-page-DnvDOZ_P.js": {
+        "rawKB": 7.3,
+        "gzipKB": 2.7
+      },
+      "table-BOcOPZpm.js": {
+        "rawKB": 10.5,
+        "gzipKB": 3.7
+      },
+      "tables-page-A3wh7ok_.js": {
+        "rawKB": 8.8,
+        "gzipKB": 3.8
+      },
+      "tabs-CoeZFPtW.js": {
+        "rawKB": 4.6,
+        "gzipKB": 1.8
+      },
+      "target-1Oeq05H0.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "terminal-BaLWB-JS.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "theme-transition-DXwA3bw8.js": {
+        "rawKB": 2.4,
+        "gzipKB": 1.2
+      },
+      "timer-DdAB16Bg.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "toggle-DAh735ZN.js": {
+        "rawKB": 4.5,
+        "gzipKB": 1.5
+      },
+      "toolbox-Dmk_2FTh.webp": {
+        "rawKB": 21.6,
+        "gzipKB": 21.6
+      },
+      "tooltip-Ba-YY8yW.js": {
+        "rawKB": 1.9,
+        "gzipKB": 1
+      },
+      "trash-CeIszAqk.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.2
+      },
+      "trending-up-BJyvDriT.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "truck-CvVFLrZA.js": {
+        "rawKB": 0.4,
+        "gzipKB": 0.3
+      },
+      "ui-kit-page-NhLba9Fe.js": {
+        "rawKB": 19.4,
+        "gzipKB": 8.3
+      },
+      "upload-LPcNgOLu.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "use-app-settings-WQTW9A9G.js": {
+        "rawKB": 0.1,
+        "gzipKB": 0.1
+      },
+      "use-debounce-CsIJcYh4.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "user-plus-D3GIdNGe.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.3
+      },
+      "users-page-BnRm0HZM.js": {
+        "rawKB": 16.7,
+        "gzipKB": 5.7
+      },
+      "virtual-table-B8VsgU_h.js": {
+        "rawKB": 3.2,
+        "gzipKB": 1.4
+      },
+      "wand-sparkles-KAfDMIYz.js": {
+        "rawKB": 0.6,
+        "gzipKB": 0.3
+      },
+      "welcome-dashboard-BuriVro3.webp": {
+        "rawKB": 20.4,
+        "gzipKB": 20.4
+      },
+      "workflow-page-Bhyucv7S.js": {
+        "rawKB": 12.7,
+        "gzipKB": 5
+      },
+      "workflow-page-BZMJClQB.js": {
+        "rawKB": 12.4,
+        "gzipKB": 5.9
+      },
+      "workspace-page-Cd9a9EVs.js": {
+        "rawKB": 10.9,
+        "gzipKB": 3.7
+      },
+      "wrench-BY3wkIBd.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.3
+      },
+      "x-CK-FzwSi.js": {
+        "rawKB": 0.2,
+        "gzipKB": 0.2
+      },
+      "zap-BGSmgIXX.js": {
+        "rawKB": 0.3,
+        "gzipKB": 0.2
+      },
+      "index.html": {
+        "rawKB": 4.6,
+        "gzipKB": 2.3
+      }
+    }
+  },
+  "results": [
+    {
+      "route": "login",
+      "path": "/login",
+      "name": "登录页",
+      "note": "首屏（未登录）",
+      "profile": "desktop",
+      "wallMs": 5125,
+      "fcp": 424,
+      "lcp": 424,
+      "lcpEl": "h1.relative.mt-5",
+      "cls": 0.0078,
+      "shifts": 1,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 57,
+      "loadEvent": 57,
+      "responseEnd": 7,
+      "transferKB": 248,
+      "decodedKB": 821,
+      "jsTransferKB": 211,
+      "jsDecodedKB": 613,
+      "jsCount": 19,
+      "cssTransferKB": 32,
+      "jsGzipKB": 205,
+      "cssGzipKB": 31,
+      "nodes": 245,
+      "canvases": 1,
+      "heapMB": 5.9,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [],
+      "inp": {
+        "handler": 0.4,
+        "nextFrames": 21.8,
+        "label": "中文"
+      },
+      "errors": []
+    },
+    {
+      "route": "overview",
+      "path": "/dashboard/overview",
+      "name": "经营概览",
+      "note": "KPI + 图表",
+      "profile": "desktop",
+      "wallMs": 5106,
+      "fcp": 344,
+      "lcp": 496,
+      "lcpEl": "img.size-full.object-contain",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 33,
+      "longTaskCount": 1,
+      "longestTask": 83,
+      "domContentLoaded": 42,
+      "loadEvent": 43,
+      "responseEnd": 2,
+      "transferKB": 584,
+      "decodedKB": 1756,
+      "jsTransferKB": 526,
+      "jsDecodedKB": 1528,
+      "jsCount": 64,
+      "cssTransferKB": 32,
+      "jsGzipKB": 507,
+      "cssGzipKB": 31,
+      "nodes": 1490,
+      "canvases": 3,
+      "heapMB": 12.8,
+      "motion": "system",
+      "riseNodes": 4,
+      "numbers": [
+        "12",
+        "86.4%",
+        "¥ 8,642,300",
+        "12.4%",
+        "128,460",
+        "8.2%",
+        "12,846",
+        "3.1%",
+        "4.68%",
+        "0.8%",
+        "864.2万/1000万",
+        "1.3万/1.6万"
+      ],
+      "inp": {
+        "handler": 0.4,
+        "nextFrames": 22,
+        "label": "业务管理"
+      },
+      "errors": []
+    },
+    {
+      "route": "analytics",
+      "path": "/dashboard/analytics",
+      "name": "数据分析",
+      "note": "多图表",
+      "profile": "desktop",
+      "wallMs": 5102,
+      "fcp": 272,
+      "lcp": 404,
+      "lcpEl": "p.mt-0.5.truncate",
+      "cls": 0.001,
+      "shifts": 1,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 45,
+      "loadEvent": 47,
+      "responseEnd": 3,
+      "transferKB": 563,
+      "decodedKB": 1738,
+      "jsTransferKB": 526,
+      "jsDecodedKB": 1530,
+      "jsCount": 61,
+      "cssTransferKB": 32,
+      "jsGzipKB": 508,
+      "cssGzipKB": 31,
+      "nodes": 1264,
+      "canvases": 5,
+      "heapMB": 14.1,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "12",
+        "+9.6%",
+        "+5.8%",
+        "+3.8%",
+        "+1.9%",
+        "1.4%",
+        "2.8%",
+        "4.2%",
+        "5.6%",
+        "7.0%"
+      ],
+      "inp": {
+        "handler": 0.4,
+        "nextFrames": 5.2,
+        "label": "业务管理"
+      },
+      "errors": []
+    },
+    {
+      "route": "users",
+      "path": "/business/users",
+      "name": "用户管理",
+      "note": "虚拟表格",
+      "profile": "desktop",
+      "wallMs": 5094,
+      "fcp": 240,
+      "lcp": 240,
+      "lcpEl": "p.mt-1.hidden",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 50,
+      "loadEvent": 51,
+      "responseEnd": 2,
+      "transferKB": 318,
+      "decodedKB": 999,
+      "jsTransferKB": 280,
+      "jsDecodedKB": 791,
+      "jsCount": 59,
+      "cssTransferKB": 32,
+      "jsGzipKB": 263,
+      "cssGzipKB": 31,
+      "nodes": 1497,
+      "canvases": 0,
+      "heapMB": 7.8,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "12",
+        "268",
+        "121",
+        "5.4%",
+        "50",
+        "116"
+      ],
+      "inp": {
+        "handler": 0.5,
+        "nextFrames": 8.4,
+        "label": "业务管理"
+      },
+      "errors": []
+    },
+    {
+      "route": "performance",
+      "path": "/dashboard/performance",
+      "name": "性能监控",
+      "note": "重页面 52.9 kB",
+      "profile": "desktop",
+      "wallMs": 5127,
+      "fcp": 360,
+      "lcp": 540,
+      "lcpEl": "div.text-fg-2.mt-0.5",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 64,
+      "longTaskCount": 2,
+      "longestTask": 109,
+      "domContentLoaded": 45,
+      "loadEvent": 47,
+      "responseEnd": 2,
+      "transferKB": 580,
+      "decodedKB": 1789,
+      "jsTransferKB": 543,
+      "jsDecodedKB": 1581,
+      "jsCount": 67,
+      "cssTransferKB": 32,
+      "jsGzipKB": 523,
+      "cssGzipKB": 31,
+      "nodes": 3394,
+      "canvases": 2,
+      "heapMB": 17.3,
+      "motion": "system",
+      "riseNodes": 8,
+      "numbers": [
+        "12",
+        "53/ 54",
+        "2.0%",
+        "46.4%",
+        "4.6%",
+        "62.5%",
+        "1.8%",
+        "94.6%",
+        "2.4%",
+        "18,642",
+        "8.4%",
+        "236ms"
+      ],
+      "inp": {
+        "handler": 0.4,
+        "nextFrames": 23.5,
+        "label": "业务管理"
+      },
+      "errors": []
+    },
+    {
+      "route": "gallery",
+      "path": "/components/overview",
+      "name": "组件橱窗",
+      "note": "最重页面 170 kB",
+      "profile": "desktop",
+      "wallMs": 5129,
+      "fcp": 772,
+      "lcp": 772,
+      "lcpEl": "p.mt-1.hidden",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 7,
+      "longTaskCount": 1,
+      "longestTask": 57,
+      "domContentLoaded": 43,
+      "loadEvent": 44,
+      "responseEnd": 2,
+      "transferKB": 798,
+      "decodedKB": 2159,
+      "jsTransferKB": 636,
+      "jsDecodedKB": 1828,
+      "jsCount": 76,
+      "cssTransferKB": 32,
+      "jsGzipKB": 614,
+      "cssGzipKB": 31,
+      "nodes": 6113,
+      "canvases": 6,
+      "heapMB": 17.6,
+      "motion": "system",
+      "riseNodes": 16,
+      "numbers": [
+        "12",
+        "14",
+        "11",
+        "13",
+        "8",
+        "10",
+        "12",
+        "5",
+        "9",
+        "3",
+        "6",
+        "9"
+      ],
+      "inp": {
+        "handler": 0.5,
+        "nextFrames": 20.4,
+        "label": "业务管理"
+      },
+      "errors": []
+    },
+    {
+      "route": "command",
+      "path": "/templates/command-center",
+      "name": "运营大屏",
+      "note": "动效 + 图表",
+      "profile": "desktop",
+      "wallMs": 5113,
+      "fcp": 200,
+      "lcp": 200,
+      "lcpEl": "span.font-mono.text-[2.125rem]",
+      "cls": 0.0008,
+      "shifts": 5,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 50,
+      "loadEvent": 52,
+      "responseEnd": 3,
+      "transferKB": 537,
+      "decodedKB": 1625,
+      "jsTransferKB": 499,
+      "jsDecodedKB": 1417,
+      "jsCount": 20,
+      "cssTransferKB": 32,
+      "jsGzipKB": 493,
+      "cssGzipKB": 31,
+      "nodes": 517,
+      "canvases": 8,
+      "heapMB": 16.5,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "00:10:12  周六",
+        "数据更新于 15:48:42",
+        "8,527,638",
+        "8,527,638",
+        "8,527,638",
+        "23.45%",
+        "125,680",
+        "125,680",
+        "18.23%",
+        "33,219",
+        "33,219",
+        "15.62%"
+      ],
+      "inp": {
+        "handler": 0.3,
+        "nextFrames": 16.6,
+        "label": "刷新"
+      },
+      "errors": []
+    },
+    {
+      "route": "canvas",
+      "path": "/templates/infinite-canvas",
+      "name": "无限画布",
+      "note": "自研画布",
+      "profile": "desktop",
+      "wallMs": 5137,
+      "fcp": 304,
+      "lcp": 368,
+      "lcpEl": "img.size-full.object-cover",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 47,
+      "loadEvent": 48,
+      "responseEnd": 3,
+      "transferKB": 333,
+      "decodedKB": 1059,
+      "jsTransferKB": 296,
+      "jsDecodedKB": 851,
+      "jsCount": 47,
+      "cssTransferKB": 32,
+      "jsGzipKB": 282,
+      "cssGzipKB": 31,
+      "nodes": 1721,
+      "canvases": 0,
+      "heapMB": 8.5,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "12",
+        "10:24",
+        "6.2s",
+        "8.5s",
+        "5.4s",
+        "10:31",
+        "10:42",
+        "11:05",
+        "10",
+        "10",
+        "12",
+        "0"
+      ],
+      "inp": {
+        "handler": 0.3,
+        "nextFrames": 31.9,
+        "label": "业务管理"
+      },
+      "errors": []
+    },
+    {
+      "route": "login",
+      "path": "/login",
+      "name": "登录页",
+      "note": "首屏（未登录）",
+      "profile": "mobile",
+      "wallMs": 6600,
+      "fcp": 2504,
+      "lcp": 2504,
+      "lcpEl": "p.mt-1.text-xs",
+      "cls": 0.0481,
+      "shifts": 1,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 1480,
+      "loadEvent": 1482,
+      "responseEnd": 170,
+      "transferKB": 248,
+      "decodedKB": 821,
+      "jsTransferKB": 211,
+      "jsDecodedKB": 613,
+      "jsCount": 19,
+      "cssTransferKB": 32,
+      "jsGzipKB": 205,
+      "cssGzipKB": 31,
+      "nodes": 245,
+      "canvases": 1,
+      "heapMB": 5.6,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [],
+      "inp": {
+        "handler": 4.8,
+        "nextFrames": 64.5,
+        "label": "中文"
+      },
+      "errors": []
+    },
+    {
+      "route": "overview",
+      "path": "/dashboard/overview",
+      "name": "经营概览",
+      "note": "KPI + 图表",
+      "profile": "mobile",
+      "wallMs": 7095,
+      "fcp": 4840,
+      "lcp": 5440,
+      "lcpEl": "p.mt-1.5.max-w-[42rem]",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 575,
+      "longTaskCount": 4,
+      "longestTask": 356,
+      "domContentLoaded": 1508,
+      "loadEvent": 1511,
+      "responseEnd": 181,
+      "transferKB": 563,
+      "decodedKB": 1736,
+      "jsTransferKB": 526,
+      "jsDecodedKB": 1528,
+      "jsCount": 64,
+      "cssTransferKB": 32,
+      "jsGzipKB": 507,
+      "cssGzipKB": 31,
+      "nodes": 1490,
+      "canvases": 3,
+      "heapMB": 14.1,
+      "motion": "system",
+      "riseNodes": 4,
+      "numbers": [
+        "86.4%",
+        "¥ 8,642,300",
+        "12.4%",
+        "128,460",
+        "8.2%",
+        "12,825",
+        "3.1%",
+        "4.67%",
+        "0.8%",
+        "864.2万/1000万",
+        "1.3万/1.6万",
+        "12.8万/16万"
+      ],
+      "inp": {
+        "handler": 4.3,
+        "nextFrames": 219.8,
+        "label": "搜索页面、功能…⌘K"
+      },
+      "errors": []
+    },
+    {
+      "route": "analytics",
+      "path": "/dashboard/analytics",
+      "name": "数据分析",
+      "note": "多图表",
+      "profile": "mobile",
+      "wallMs": 7040,
+      "fcp": 4592,
+      "lcp": 4792,
+      "lcpEl": "p.mt-0.5.truncate",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 558,
+      "longTaskCount": 2,
+      "longestTask": 570,
+      "domContentLoaded": 1496,
+      "loadEvent": 1497,
+      "responseEnd": 184,
+      "transferKB": 563,
+      "decodedKB": 1738,
+      "jsTransferKB": 526,
+      "jsDecodedKB": 1530,
+      "jsCount": 61,
+      "cssTransferKB": 32,
+      "jsGzipKB": 508,
+      "cssGzipKB": 31,
+      "nodes": 1264,
+      "canvases": 5,
+      "heapMB": 12.5,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "+9.6%",
+        "+5.8%",
+        "+3.8%",
+        "+1.9%",
+        "1.4%",
+        "2.8%",
+        "4.2%",
+        "5.6%",
+        "7.0%",
+        "12"
+      ],
+      "inp": {
+        "handler": 3.6,
+        "nextFrames": 205,
+        "label": "搜索页面、功能…⌘K"
+      },
+      "errors": []
+    },
+    {
+      "route": "users",
+      "path": "/business/users",
+      "name": "用户管理",
+      "note": "虚拟表格",
+      "profile": "mobile",
+      "wallMs": 6784,
+      "fcp": 4568,
+      "lcp": 5048,
+      "lcpEl": "p.truncate.text-[0.8125rem]",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 214,
+      "longTaskCount": 2,
+      "longestTask": 207,
+      "domContentLoaded": 1489,
+      "loadEvent": 1491,
+      "responseEnd": 177,
+      "transferKB": 318,
+      "decodedKB": 999,
+      "jsTransferKB": 280,
+      "jsDecodedKB": 791,
+      "jsCount": 59,
+      "cssTransferKB": 32,
+      "jsGzipKB": 263,
+      "cssGzipKB": 31,
+      "nodes": 1497,
+      "canvases": 0,
+      "heapMB": 7.5,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "268",
+        "121",
+        "5.4%",
+        "50",
+        "116",
+        "12"
+      ],
+      "inp": {
+        "handler": 3.1,
+        "nextFrames": 217,
+        "label": "搜索页面、功能…⌘K"
+      },
+      "errors": []
+    },
+    {
+      "route": "performance",
+      "path": "/dashboard/performance",
+      "name": "性能监控",
+      "note": "重页面 52.9 kB",
+      "profile": "mobile",
+      "wallMs": 7017,
+      "fcp": 5448,
+      "lcp": 5448,
+      "lcpEl": "span.truncate",
+      "cls": 0.0025,
+      "shifts": 1,
+      "tbt": 712,
+      "longTaskCount": 3,
+      "longestTask": 609,
+      "domContentLoaded": 1509,
+      "loadEvent": 1511,
+      "responseEnd": 171,
+      "transferKB": 335,
+      "decodedKB": 1049,
+      "jsTransferKB": 298,
+      "jsDecodedKB": 841,
+      "jsCount": 66,
+      "cssTransferKB": 32,
+      "jsGzipKB": 279,
+      "cssGzipKB": 31,
+      "nodes": 3394,
+      "canvases": 0,
+      "heapMB": 10.9,
+      "motion": "system",
+      "riseNodes": 8,
+      "numbers": [
+        "52/ 54",
+        "2.0%",
+        "44.9%",
+        "4.6%",
+        "59.8%",
+        "1.8%",
+        "89.3%",
+        "2.4%",
+        "17,338",
+        "8.4%",
+        "216ms",
+        "12.6%"
+      ],
+      "inp": {
+        "handler": 2.5,
+        "nextFrames": 157.5,
+        "label": "搜索页面、功能…⌘K"
+      },
+      "errors": []
+    },
+    {
+      "route": "gallery",
+      "path": "/components/overview",
+      "name": "组件橱窗",
+      "note": "最重页面 170 kB",
+      "profile": "mobile",
+      "wallMs": 10433,
+      "fcp": 0,
+      "lcp": 0,
+      "lcpEl": "",
+      "cls": 0,
+      "shifts": 0,
+      "tbt": 5144,
+      "longTaskCount": 4,
+      "longestTask": 4920,
+      "domContentLoaded": 1482,
+      "loadEvent": 1484,
+      "responseEnd": 171,
+      "transferKB": 428,
+      "decodedKB": 1296,
+      "jsTransferKB": 391,
+      "jsDecodedKB": 1088,
+      "jsCount": 74,
+      "cssTransferKB": 32,
+      "jsGzipKB": 369,
+      "cssGzipKB": 31,
+      "nodes": 6113,
+      "canvases": 0,
+      "heapMB": 11.7,
+      "motion": "system",
+      "riseNodes": 16,
+      "numbers": [
+        "14",
+        "11",
+        "13",
+        "8",
+        "10",
+        "12",
+        "5",
+        "9",
+        "3",
+        "6",
+        "9",
+        "5"
+      ],
+      "inp": {
+        "handler": 4.3,
+        "nextFrames": 483.4,
+        "label": "搜索页面、功能…⌘K"
+      },
+      "errors": []
+    },
+    {
+      "route": "command",
+      "path": "/templates/command-center",
+      "name": "运营大屏",
+      "note": "动效 + 图表",
+      "profile": "mobile",
+      "wallMs": 6610,
+      "fcp": 2944,
+      "lcp": 2944,
+      "lcpEl": "span.font-mono.text-[2.125rem]",
+      "cls": 0.0053,
+      "shifts": 1,
+      "tbt": 360,
+      "longTaskCount": 4,
+      "longestTask": 300,
+      "domContentLoaded": 1535,
+      "loadEvent": 1536,
+      "responseEnd": 179,
+      "transferKB": 537,
+      "decodedKB": 1625,
+      "jsTransferKB": 499,
+      "jsDecodedKB": 1417,
+      "jsCount": 20,
+      "cssTransferKB": 32,
+      "jsGzipKB": 493,
+      "cssGzipKB": 31,
+      "nodes": 517,
+      "canvases": 8,
+      "heapMB": 17.3,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "00:11:10  周六",
+        "数据更新于 15:48:42",
+        "8,527,638",
+        "8,527,638",
+        "8,527,638",
+        "23.45%",
+        "125,680",
+        "125,680",
+        "18.23%",
+        "33,219",
+        "33,219",
+        "15.62%"
+      ],
+      "inp": {
+        "handler": 1.5,
+        "nextFrames": 17,
+        "label": "刷新"
+      },
+      "errors": []
+    },
+    {
+      "route": "canvas",
+      "path": "/templates/infinite-canvas",
+      "name": "无限画布",
+      "note": "自研画布",
+      "profile": "mobile",
+      "wallMs": 6751,
+      "fcp": 4612,
+      "lcp": 4612,
+      "lcpEl": "span.truncate",
+      "cls": 0,
+      "shifts": 2,
+      "tbt": 0,
+      "longTaskCount": 0,
+      "longestTask": 0,
+      "domContentLoaded": 1496,
+      "loadEvent": 1498,
+      "responseEnd": 176,
+      "transferKB": 333,
+      "decodedKB": 1059,
+      "jsTransferKB": 296,
+      "jsDecodedKB": 851,
+      "jsCount": 47,
+      "cssTransferKB": 32,
+      "jsGzipKB": 282,
+      "cssGzipKB": 31,
+      "nodes": 1163,
+      "canvases": 0,
+      "heapMB": 7.4,
+      "motion": "system",
+      "riseNodes": 0,
+      "numbers": [
+        "10:24",
+        "10",
+        "1",
+        "12",
+        "0",
+        "60",
+        "12"
+      ],
+      "inp": {
+        "handler": 3.1,
+        "nextFrames": 176.4,
+        "label": "搜索页面、功能…⌘K"
+      },
+      "errors": []
+    }
+  ]
+}
