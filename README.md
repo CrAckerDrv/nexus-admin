@@ -11,7 +11,7 @@
 
 React 19 · Vite 8 · TypeScript · Tailwind CSS v4 · TanStack Router / Query · ECharts 6
 
-[![CI](https://img.shields.io/badge/CI-passing-brightgreen)](https://github.com/CrAckerDrv/nexus-admin/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/badge/CI-pnpm%20verify-brightgreen)](https://github.com/CrAckerDrv/nexus-admin/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178c6)](https://www.typescriptlang.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
